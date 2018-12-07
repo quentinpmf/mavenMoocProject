@@ -1,2 +1,0 @@
-# mavenMoocProject
-mavenMoocProject
