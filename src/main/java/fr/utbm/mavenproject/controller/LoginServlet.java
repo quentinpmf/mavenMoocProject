@@ -75,6 +75,15 @@ public class LoginServlet extends HttpServlet {
                     /* création de la session utilisateur */
                     HttpSession userSession = request.getSession(true);
                     userSession.setAttribute("email",email);
+                    
+                    //get others infos
+                    Client cli = dclc.getClientByEmail(email);
+                    userSession.setAttribute("id",cli.getId());
+                    userSession.setAttribute("lastname",cli.getLastname());
+                    userSession.setAttribute("firstname",cli.getFirstname());
+                    userSession.setAttribute("address",cli.getAddress());
+                    userSession.setAttribute("phone",cli.getPhone());
+                    
                     this.getServletContext().getRequestDispatcher( VUE_HOME ).forward( request, response );
                 }
                 else

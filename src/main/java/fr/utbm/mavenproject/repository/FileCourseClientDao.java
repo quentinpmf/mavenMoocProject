@@ -5,17 +5,19 @@
  */
 package fr.utbm.mavenproject.repository;
 
-import fr.utbm.mavenproject.entity.CourseSession;
-import fr.utbm.mavenproject.entity.Course;
+import fr.utbm.mavenproject.entity.Client;
+import fr.utbm.mavenproject.entity.CourseClient;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author qboudino
  */
-public class FileCourseSessionDao 
+public class FileCourseClientDao 
 {
     private static final String JPA_UNIT_NAME = "fr.utbm_mavenproject_jar_1.0-SNAPSHOTPU";
     private EntityManager entityManager;
@@ -32,15 +34,26 @@ public class FileCourseSessionDao
     * L'opération Read
     * @return tous les sessions de cours présentes dans la base de données.
     */
-    public List<CourseSession> selectAll() {
-        List<CourseSession> courseSessions = getEntityManager().createQuery("select c from COURSE_SESSION c").getResultList();
-        return courseSessions;
+    public List<CourseClient> selectAll() {
+        List<CourseClient> courseSessionClients = getEntityManager().createQuery("select c from CourseClient c", CourseClient.class).getResultList();
+        return courseSessionClients;
     }
     
-    public List<CourseSession> selectAllWithFilters(String whereClause) {
-       
-        List<CourseSession> courseSessions = getEntityManager().createQuery("from CourseSession as cs INNER JOIN Course as c "+whereClause).getResultList();
-        return courseSessions;
+    public boolean checkIfClientIsInCs(String clientId, String csId)
+    {        
+        System.out.println("AZAZAZAZAZAZAZ");
+        Query query = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM CourseClient WHERE clientId=14 AND csId=4", CourseClient.class);
+        System.out.println("BLABLABLABLA");
+        int count = (int) query.getSingleResult();
+        
+        if(count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
     
     /**
@@ -48,7 +61,7 @@ public class FileCourseSessionDao
     * @param c La session de cours à insérer dans la base de données.
     * @return La session de cours insérée
     */
-    public CourseSession insert(CourseSession c) {
+    public CourseClient insert(CourseClient c) {
            getEntityManager().getTransaction().begin();
            getEntityManager().persist(c);
            getEntityManager().getTransaction().commit();
@@ -59,7 +72,7 @@ public class FileCourseSessionDao
     * L'opération Delete
     * @param c La session de cours à supprimer de la base de données
     */
-    public void delete(CourseSession c) {
+    public void delete(CourseClient c) {
         getEntityManager().getTransaction().begin();
         c = getEntityManager().merge(c);//<-Important
         getEntityManager().remove(c);
@@ -71,7 +84,7 @@ public class FileCourseSessionDao
     * @param c La session de cours à mettre à jour dans la base de données.
     * @return La session de cours mise à jour
     */
-    public CourseSession update(CourseSession c) {
+    public CourseClient update(CourseClient c) {
         getEntityManager().getTransaction().begin();
         c = getEntityManager().merge(c);
         getEntityManager().getTransaction().commit();

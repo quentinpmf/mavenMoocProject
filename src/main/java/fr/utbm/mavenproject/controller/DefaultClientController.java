@@ -46,6 +46,13 @@ public class DefaultClientController
         return emailExists;
     }
     
+    //Récupération d'un client en BDD avec son email.
+    public Client getClientByEmail(String email) 
+    {
+        FileClientDao fcd = new FileClientDao();
+        return fcd.getClientByEmail(email);
+    }
+    
     //Compare le mot de passe donné en parametre avec celui de la BDD.
     public boolean comparePasswords(String email, String passwordFromForm)
     {
