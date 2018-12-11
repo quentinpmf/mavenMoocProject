@@ -9,38 +9,35 @@ import fr.utbm.mavenproject.entity.Location;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author qboudino
  */
-public class FileLocationDao 
+public class LocationDao 
 {
     private static final String JPA_UNIT_NAME = "fr.utbm_mavenproject_jar_1.0-SNAPSHOTPU";
     private EntityManager entityManager;
 
-    protected EntityManager getEntityManager() 
-    {
+    protected EntityManager getEntityManager() {
         if (entityManager == null) {
             entityManager = Persistence.createEntityManagerFactory(JPA_UNIT_NAME).createEntityManager();
         }
         return entityManager;
     }
     
-    /**
-    * L'opération Read
-    * @return toutes les villes présents dans la base de données.
-    */
-    public List<Location> selectAll() {
-        List<Location> locations = getEntityManager().createQuery("select l from LOCATION l").getResultList();
+    public Location getLocationById(int locationId) {        
+        TypedQuery<Location> query = getEntityManager().createQuery("select l from Location l where l.id =:id", Location.class);
+        Location result = query.setParameter("id", locationId).getSingleResult();
+        return result;
+    }
+    
+    public List<Location> getLocations() {
+        List<Location> locations = getEntityManager().createQuery("select l from Location l").getResultList();
         return locations;
     }
     
-    /**
-    * L'opération Create
-    * @param l La ville à insérer dans la base de données.
-    * @return La ville insérée
-    */
     public Location insert(Location l) {
            getEntityManager().getTransaction().begin();
            getEntityManager().persist(l);
@@ -48,10 +45,6 @@ public class FileLocationDao
            return l;
     }
     
-    /**
-    * L'opération Delete
-    * @param l La ville à supprimer de la base de données
-    */
     public void delete(Location l) {
         getEntityManager().getTransaction().begin();
         l = getEntityManager().merge(l);//<-Important
@@ -59,11 +52,6 @@ public class FileLocationDao
         getEntityManager().getTransaction().commit();
     }
     
-    /**
-    * L'opération Update
-    * @param l La ville à mettre à jour dans la base de données.
-    * @return La ville mise à jour
-    */
     public Location update(Location l) {
         getEntityManager().getTransaction().begin();
         l = getEntityManager().merge(l);

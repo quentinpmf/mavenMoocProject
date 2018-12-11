@@ -3,45 +3,81 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.utbm.mavenproject.controller;
+package fr.utbm.mavenproject.repository;
 
-import fr.utbm.mavenproject.entity.Client;
+import fr.utbm.mavenproject.entity.Course;
 import fr.utbm.mavenproject.entity.CourseSession;
-import fr.utbm.mavenproject.repository.FileClientDao;
-import fr.utbm.mavenproject.repository.FileCourseSessionDao;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author qboudino
  */
-public class DefaultCourseSessionController 
+public class CourseSessionDao 
 {
-    private static EntityManager em;
-    
-    public void createCourseSession(String startDate, String endDate, String maxParticipant, String courseCode, String locationId, String image) 
-    {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.utbm_mavenproject_jar_1.0-SNAPSHOTPU");
-        em = emf.createEntityManager();
-        em.getTransaction().begin();
-        CourseSession cs = new CourseSession();
-        cs.setStartDate(startDate);
-        cs.setEndDate(endDate);
-        cs.setMaxParticipant(maxParticipant);
-        cs.setCourseCode(courseCode);
-        cs.setLocationId(locationId);
-        if(image == null)
-        {
-            image = "http://image.noelshack.com/fichiers/2018/49/4/1544137044-formation8.jpg";
+    private static final String JPA_UNIT_NAME = "fr.utbm_mavenproject_jar_1.0-SNAPSHOTPU";
+    private EntityManager entityManager;
+
+    protected EntityManager getEntityManager() {
+        if (entityManager == null) {
+            entityManager = Persistence.createEntityManagerFactory(JPA_UNIT_NAME).createEntityManager();
         }
-        cs.setImageLink(image);
-        em.persist(cs);
-        em.getTransaction().commit();
+        return entityManager;
     }
+    
+    public CourseSession getCsById(int id) {
+        TypedQuery<CourseSession> query = getEntityManager().createQuery("select c from CourseSession c where c.id= :id", CourseSession.class);
+        CourseSession result = query.setParameter("id", id).getSingleResult();
+        return result;
+    }
+    
+    public List<CourseSession> getAllCs() {
+        List<CourseSession> courseSessions = getEntityManager().createQuery("select c from CourseSession c").getResultList();
+        return courseSessions;
+    }
+    
+    public List<CourseSession> getFourFirstCs() {
+        /* TODO QUENTIN 
+        String query="SELECT * FROM COURSE_SESSION ORDER BY ID DESC";
+        Connection conn=DriverManager.getConnection(url, username, password);
+        Statement stmt=conn.createStatement();
+        stmt.setMaxRows(4);
+        */
+        List<CourseSession> courseSessions = getEntityManager().createQuery("select c from CourseSession").getResultList(); 
+        return courseSessions;
+    }
+    
+    public List<CourseSession> getAllCsWithFilters(String whereClause) {
+        List<CourseSession> courseSessions = getEntityManager().createQuery("from CourseSession as cs INNER JOIN Course as c "+whereClause).getResultList();
+        return courseSessions; //TODO Quentin : à vérifier
+    }
+    
+    public CourseSession insert(CourseSession c) {
+           getEntityManager().getTransaction().begin();
+           getEntityManager().persist(c);
+           getEntityManager().getTransaction().commit();
+           return c;
+    }
+    
+    public void delete(CourseSession c) {
+        getEntityManager().getTransaction().begin();
+        c = getEntityManager().merge(c);//<-Important
+        getEntityManager().remove(c);
+        getEntityManager().getTransaction().commit();
+    }
+    
+    public CourseSession update(CourseSession c) {
+        getEntityManager().getTransaction().begin();
+        c = getEntityManager().merge(c);
+        getEntityManager().getTransaction().commit();
+        return c;
+    }
+    
+    //################################################################
     
     public List<CourseSession> selectAllWithFilters(String param_title, String param_date, String param_location) 
     {
@@ -104,7 +140,7 @@ public class DefaultCourseSessionController
         //éxécution de la requête
         if(!"".equals(whereClause))
         {
-            FileCourseSessionDao fcsd = new FileCourseSessionDao();
+            CourseSessionDao fcsd = new CourseSessionDao();
             List<CourseSession> csList = fcsd.selectAllWithFilters(whereClause);
             
         }

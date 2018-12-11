@@ -8,7 +8,11 @@ package fr.utbm.mavenproject.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,36 +27,49 @@ import javax.persistence.Table;
  * @author quent
  */
 public class CourseClient implements Serializable {
-
-    @Id
-    @Column(name = "CS_ID")
-    private int csId;
  
     @Id
-    @Column(name = "CLIENT_ID")
-    private int clientId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private int id;
+    
+    @JoinColumn(name = "CS_ID", referencedColumnName = "CODE")
+    @ManyToOne(optional = false)
+    private CourseSession csId;
 
-    public CourseClient(int csId, int clientId) {
-        this.csId = csId;
-        this.clientId = clientId;
+    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Client clientId;
+
+    public CourseClient(int id) {
+        this.id = id;
     }
 
     public CourseClient() {
     }
 
-    public int getCsId() {
+    public int getId() {
+        return id;
+    }
+
+    public CourseSession getCsId() {
         return csId;
     }
 
-    public int getClientId() {
+    public Client getClientId() {
         return clientId;
     }
 
-    public void setCsId(int csId) {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCsId(CourseSession csId) {
         this.csId = csId;
     }
 
-    public void setClientId(int clientId) {
+    public void setClientId(Client clientId) {
         this.clientId = clientId;
     }
+
 }

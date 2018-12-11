@@ -1,23 +1,21 @@
 package fr.utbm.mavenproject.controller;
 
 import fr.utbm.mavenproject.entity.Client;
+import fr.utbm.mavenproject.service.ClientService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Response;
 
 /*
  * @author quentinboudinot
 */
+@WebServlet( name="LoginServlet", urlPatterns = "/login" )
 public class LoginServlet extends HttpServlet {
     public static final String VUE          = "/login.jsp";
     public static final String VUE_HOME     = "/home.jsp";
@@ -29,55 +27,57 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        /* Affichage de la page de login */
-        System.out.println("doGet dans LoginServlet");
+        System.out.println("doGet dans LoginServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
+        System.out.println("doPost dans LoginServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        
         String resultat;
         Map<String, String> erreurs = new HashMap<String, String>();
 
-        /* Récupération des champs du formulaire. */
+        // Récupération des champs du formulaire.
         String email = request.getParameter( CHAMP_EMAIL );
         String motDePasse = request.getParameter( CHAMP_PASS );
 
-        /* Validation du champ email. */
+        ClientService cs = new ClientService();
+            
+        // Vérification du champ email. 
         try {
-            validationEmail( email );
+            cs.verifEmailFromForm(email);
         } catch ( Exception e ) {
             erreurs.put( CHAMP_EMAIL, e.getMessage() );
         }
 
-        /* Validation du champ mot de passe . */
+        // Vérification du champ mot de passe
         try {
-            validationMotsDePasse( motDePasse );
+            cs.verifMdpFromForm(motDePasse);
         } catch ( Exception e ) {
             erreurs.put( CHAMP_PASS, e.getMessage() );
         }
 
-        /* Initialisation du résultat global de la validation. */
+        // Initialisation du résultat global de la validation
         if ( erreurs.isEmpty() ) {
-            DefaultClientController dclc = new DefaultClientController();
-            boolean emailExists = dclc.checkEmail(email); //je regarde si l'email est déja dans la BDD
+            boolean emailExists = cs.checkEmail(email); //je regarde si l'email est déja dans la BDD
             
             if(emailExists) //si oui, alors on vérifie le mot de passe saisi par l'utilisateur
             {
-                boolean verifMotDePasse = dclc.comparePasswords(email, motDePasse);
+                boolean verifMotDePasse = cs.comparePasswords(email, motDePasse);
                 
                 if(verifMotDePasse) //si le mot de passe est OK.
                 {
                     resultat = "Succès de la connexion.";
                     request.setAttribute( ATT_RESULTAT, resultat );
                     
-                    /* création de la session utilisateur */
+                    // création de la session utilisateur
                     HttpSession userSession = request.getSession(true);
                     userSession.setAttribute("email",email);
                     
-                    //get others infos
-                    Client cli = dclc.getClientByEmail(email);
+                    // récupération des informations utilisateurs autres qu'email
+                    Client cli = cs.getClientByEmail(email);
                     userSession.setAttribute("id",cli.getId());
                     userSession.setAttribute("lastname",cli.getLastname());
                     userSession.setAttribute("firstname",cli.getFirstname());
@@ -100,41 +100,14 @@ public class LoginServlet extends HttpServlet {
             
             request.setAttribute( ATT_ERREURS, erreurs );
             request.setAttribute( ATT_RESULTAT, resultat );
-            /* Transmission de la paire d'objets request/response à notre JSP */
             this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
         } 
         else 
         {
             resultat = "Échec de la connexion.";
-            
             request.setAttribute( ATT_ERREURS, erreurs );
             request.setAttribute( ATT_RESULTAT, resultat );
-            /* Transmission de la paire d'objets request/response à notre JSP */
             this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
         }
-    }
-
-    /**
-    * Valide l'adresse mail saisie.
-    * @author quentinboudinot
-    */
-    private void validationEmail( String email ) throws Exception {
-       if ( email != null && email.trim().length() != 0 ) {
-           if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-               throw new Exception( "Merci de saisir une adresse mail valide." );
-           }
-       } else {
-           throw new Exception( "Merci de saisir une adresse mail." );
-       }
-    }
-
-    /**
-     * Valide le mot de passe saisi.
-     * @author quentinboudinot
-     */
-    private void validationMotsDePasse( String motDePasse ) throws Exception{
-       if (motDePasse == null && motDePasse.trim().length() == 0 ) {
-           throw new Exception("Merci de saisir votre mot de passe.");
-       }
     }
 }
