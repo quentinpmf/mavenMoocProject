@@ -2,6 +2,10 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +32,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="home.jsp">Université privée Saint-Joseph</a>
+          <a class="navbar-brand" href="home.jsp">UniversitÃ© privÃ©e Saint-Joseph</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -54,7 +58,7 @@
                   {
               %>        
                     <li class="nav-item">
-                        <a class="nav-link" href="deconnexion">Déconnexion de <%=lastname%><%=firstname%></a>
+                        <a class="nav-link" href="deconnexion">DÃ©connexion de <%=lastname%><%=firstname%></a>
                     </li>
               <%
                   }
@@ -104,9 +108,10 @@
                                   <div class="form-group">
                                     <label for="filter">Ville de la formation</label>
                                     <select class="form-control" name="location">
-                                        <option value="1" selected>Belfort</option> <!-- todo dynamique -->
-                                        <option value="2">Montbelliard</option>
-                                        <option value="3">Paris</option>
+                                        <option value="0" selected></option> <!-- todo dynamique -->
+                                        <c:forEach items="${locations}" var="location">
+                                            <option value="${location.id}">${location.city}</option>
+                                        </c:forEach>
                                     </select>
                                   </div>
                                   <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
@@ -123,62 +128,28 @@
       <br>
       
       <div class="row">
-        <%
-        try
-        {
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
-        String url="jdbc:derby://localhost:1527/bdd_projetLO54";
-        String username="bdd_user";
-        String password="bdd_password";
-        String query="SELECT * FROM COURSE_SESSION cs INNER JOIN COURSE c ON cs.COURSE_CODE = c.CODE ORDER BY ID DESC";
-        Connection conn=DriverManager.getConnection(url, username, password);
-        Statement stmt=conn.createStatement();
-        ResultSet rs=stmt.executeQuery(query);
-        while(rs.next())
-        {
-            String imageLink = rs.getString("IMAGE");
-        
-            if (imageLink == null || imageLink.isEmpty()) {
-                imageLink="http://image.noelshack.com/fichiers/2018/49/4/1544137044-formation8.jpg";
-            }
-        %>
-          
-        <div class="col-lg-4 col-sm-6 portfolio-item sessions_list">
-          <div class="card h-100">
-            <img class="card-img-top" src="<%=imageLink %>" alt="">
-            <div class="card-body">
-              <h4 class="card-title"><%=rs.getString("TITLE") %></h4>
-              <p class="card-text">
-                  <i>Du <%=rs.getDate("START_DATE") %> au <%=rs.getDate("END_DATE") %></i>
-                  <br>
-                  <u>Lieu</u> : <%=rs.getInt("LOCATION_ID") %>
-                  <br>
-                  <u>Places restantes</u> : <%=rs.getInt("PLACES_LIBRE") %>/<%=rs.getInt("MAX_PARTICPANT") %>
-              </p>
-              <p class="card-text">
-                <!-- <button type="button" class="btn btn-dark">Pré-inscrit</button> -->
-                <a class="btn btn-success" href="course_sessions?inscription=<%=rs.getInt("ID") %>" role="button">Se pré-inscrire</a>
-              </p>
+        <c:forEach items="${courseSessions}" var="courseSession">
+            <div class="col-lg-4 col-sm-6 portfolio-item sessions_list">
+                <div class="card h-100">
+                  <img class="card-img-top" src="${courseSession.image}" alt="">
+                  <div class="card-body">
+                    <h4 class="card-title">${courseSession.courseCode.title}</h4>
+                    <p class="card-text">
+                        <i>Du <fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${courseSession.endDate}" pattern="dd/MM/yyyy"/></i>
+                        <br>
+                        <u>Lieu</u> : ${courseSession.locationId.city}
+                        <br>
+                        <u>Places restantes</u> : ${courseSession.placesLibres}/${courseSession.maxi}
+                    </p>
+                    <p class="card-text">
+                      <c:if test = "${!courseSession.placesLibres.equals(0)}"> <!-- TODO QUENTIN : ne marche pas pour l'instant -->
+                        <a class="btn btn-success" href="course_sessions?inscription=${courseSession.id}" role="button">Se prÃ©-inscrire</a>
+                     </c:if>
+                    </p>
+                  </div>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <%
-
-        }
-        %>
-
-        <%
-        rs.close();
-        stmt.close();
-        conn.close();
-        }
-        catch(Exception e)
-        {
-        e.printStackTrace();
-        }
-        %>
-        
+        </c:forEach>
       </div><!-- /.row -->
 
     </div>

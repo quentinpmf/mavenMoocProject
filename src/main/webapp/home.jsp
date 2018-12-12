@@ -1,9 +1,11 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +123,7 @@
         <c:forEach items="${courseSessions}" var="courseSession">
             <div class="col-md-3 col-sm-6 mb-4 formation_info">
                 <div class="formation_title"><b>${courseSession.courseCode.title}</b></div>
-                <div class="formation_date"><i>Du ${courseSession.startDate} au ${courseSession.endDate}</i></div>
+                <div class="formation_date"><i>Du <fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${courseSession.endDate}" pattern="dd/MM/yyyy"/></i></div>
                 <div class="formation_lieu"><u>Lieu</u> : ${courseSession.locationId.city}</div>
                 <div class="formation_places_dispo"><u>Places libres</u> : ${courseSession.placesLibres}/${courseSession.maxi}</div>
             </div>
