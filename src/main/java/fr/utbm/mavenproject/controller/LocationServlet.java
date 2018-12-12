@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
+/**
+ *
  * @author quentinboudinot
-*/
+ */
 @WebServlet(name = "LocationServlet", urlPatterns = "/location")
 public class LocationServlet extends HttpServlet {
     public static final String VUE          = "/location.jsp";

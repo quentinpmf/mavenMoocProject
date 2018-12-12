@@ -1,80 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.mavenproject.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  *
- * @author qboudino
+ * @author quentinboudinot
  */
 @Entity
 @Table(name = "COURSE")
-
-/**
- *
- * @author quent
- */
 public class Course implements Serializable {
-
+    
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "CODE", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "CODE", nullable = false)
     private int code;
- 
-    @Column(name = "TITLE", nullable = false)
+    
+    @Basic(optional = false)
+    @Column(name = "TITLE", nullable = false, length = 255)
     private String title;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "COURSE")
-    private List<CourseSession> sessions = new ArrayList<CourseSession>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseCode")
+    private List<CourseSession> courseSessionList;
+    
+    public Course() {
+    }
 
     public Course(int code, String title) {
         this.code = code;
         this.title = title;
     }
 
-    public Course() {
-    }
-
     public int getCode() {
         return code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public List<CourseSession> getSessions() {
-        return sessions;
     }
 
     public void setCode(int code) {
         this.code = code;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setSessions(List<CourseSession> sessions) {
-        this.sessions = sessions;
+    public List<CourseSession> getCourseSessionList() {
+        return courseSessionList;
     }
+
+    public void setCourseSessionList(List<CourseSession> courseSessionList) {
+        this.courseSessionList = courseSessionList;
+    }
+
 
 }

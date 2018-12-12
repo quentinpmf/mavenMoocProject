@@ -70,26 +70,6 @@
                 <button>Connexion</button>
                 <p class="message">Pas enregistré? <a href="inscription">Créer un compte</a></p>
               </form>
-                    
-              <!-- old
-              <form method="post" action="login" class="register-form">
-                    <fieldset>
-                        <legend>Connexion</legend>
-
-                        <label for="email">Adresse email <span class="requis">*</span></label>
-                        <input type="email" id="email" name="email" value="<c:out value="${param.email}"/>" maxlength="60" />
-                        <span class="erreur">${erreurs['email']}</span>
-
-                        <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-                        <input type="password" id="motdepasse" name="motdepasse" value="" maxlength="20" />
-                        <span class="erreur">${erreurs['motdepasse']}</span>
-
-                        <button>Connexion</button>
-                        <p class="message">Not registered? <a href="#">Create an account</a></p>
-                        <p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
-                    </fieldset>
-                </form>
-                 -->
                  
             </div>
         </div>

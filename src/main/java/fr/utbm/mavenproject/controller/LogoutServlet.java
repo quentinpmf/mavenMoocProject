@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/*
+/**
+ *
  * @author quentinboudinot
-*/
+ */
 @WebServlet(name = "LogoutServlet", urlPatterns = "/logout" )
 public class LogoutServlet extends HttpServlet {
     public static final String VUE_HOME     = "/home.jsp";

@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.mavenproject.repository;
 
-import fr.utbm.mavenproject.entity.Course;
 import fr.utbm.mavenproject.entity.CourseSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author qboudino
+ * @author quentinboudinot
  */
 public class CourseSessionDao 
 {
@@ -23,9 +17,11 @@ public class CourseSessionDao
     private EntityManager entityManager;
 
     protected EntityManager getEntityManager() {
+        System.out.println("dans entityManager");
         if (entityManager == null) {
             entityManager = Persistence.createEntityManagerFactory(JPA_UNIT_NAME).createEntityManager();
         }
+        System.out.println("entityManager = "+entityManager);
         return entityManager;
     }
     
@@ -41,13 +37,15 @@ public class CourseSessionDao
     }
     
     public List<CourseSession> getFourFirstCs() {
+        System.out.println("getFourFirstCs dao");
         /* TODO QUENTIN 
         String query="SELECT * FROM COURSE_SESSION ORDER BY ID DESC";
         Connection conn=DriverManager.getConnection(url, username, password);
         Statement stmt=conn.createStatement();
         stmt.setMaxRows(4);
         */
-        List<CourseSession> courseSessions = getEntityManager().createQuery("select c from CourseSession").getResultList(); 
+        List<CourseSession> courseSessions = getEntityManager().createQuery("from CourseSession").getResultList();
+        System.out.println("getFourFirstCs after dao");
         return courseSessions;
     }
     
@@ -65,7 +63,7 @@ public class CourseSessionDao
     
     public void delete(CourseSession c) {
         getEntityManager().getTransaction().begin();
-        c = getEntityManager().merge(c);//<-Important
+        c = getEntityManager().merge(c); //<-Important
         getEntityManager().remove(c);
         getEntityManager().getTransaction().commit();
     }
@@ -137,9 +135,11 @@ public class CourseSessionDao
             }
         }
 
+        /*
         //éxécution de la requête
         if(!"".equals(whereClause))
         {
+           
             CourseSessionDao fcsd = new CourseSessionDao();
             List<CourseSession> csList = fcsd.selectAllWithFilters(whereClause);
             
@@ -148,6 +148,8 @@ public class CourseSessionDao
         {
             List<CourseSession> csList = new ArrayList();
         }
+        */
+        List<CourseSession> csList = new ArrayList();
         return csList;
     }
 }

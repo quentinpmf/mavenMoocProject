@@ -2,6 +2,9 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,14 +31,14 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="home.jsp">Université privée Saint-Joseph</a>
+          <a class="navbar-brand" href="home.jsp">UniversitÃ© privÃ©e Saint-Joseph</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="home.jsp">Accueil
+                <a class="nav-link" href="home">Accueil
                 <span class="sr-only">(current)</span>
                 </a>
               </li>
@@ -53,7 +56,7 @@
                   {
               %>        
                     <li class="nav-item">
-                        <a class="nav-link" href="deconnexion">Déconnexion de <%=lastname%><%=firstname%></a>
+                        <a class="nav-link" href="deconnexion">DÃ©connexion de <%=lastname%><%=firstname%></a>
                     </li>
               <%
                   }
@@ -78,15 +81,15 @@
     <div class="container">
 
       <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Notre enceinte privée
-        <small>à Belfort</small>
+      <h1 class="my-4">Notre enceinte privÃ©e
+        <small>Ã  Belfort</small>
       </h1>
 
       <!-- Portfolio Item Row -->
       <div class="row">
 
         <div class="col-md-8">
-          <img class="img-fluid" src="http://image.noelshack.com/fichiers/2018/49/4/1544128770-ecole.jpg" alt="image de l'université Saint-Joseph de Belfort">
+          <img class="img-fluid" src="http://image.noelshack.com/fichiers/2018/49/4/1544128770-ecole.jpg" alt="image de l'universitÃ© Saint-Joseph de Belfort">
         </div>
 
         <div class="col-md-4">
@@ -94,10 +97,10 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
           <h3 class="my-3">Ce que nous proposons</h3>
           <ul>
-            <li>Des enseignants compétents</li>
-            <li>Un suivi régulier et personnel</li>
-            <li>De nombreuses formations à la carte</li>
-            <li>Des lieux de formation  différents</li>
+            <li>Des enseignants compÃ©tents</li>
+            <li>Un suivi rÃ©gulier et personnel</li>
+            <li>De nombreuses formations Ã  la carte</li>
+            <li>Des lieux de formation  diffÃ©rents</li>
           </ul>
         </div>
 
@@ -169,13 +172,13 @@
         while(rs.next())
         {
         %>
-          
+        
         <div class="col-md-3 col-sm-6 mb-4 formation_info">
             <div class="formation_title"><b><%=rs.getString("TITLE") %></b></div>
             <div class="formation_date"><i>Du <%=rs.getDate("START_DATE") %> au <%=rs.getDate("END_DATE") %></i></div>
             <div class="formation_lieu"><u>Lieu</u> : <%=rs.getInt("LOCATION_ID") %></div>
             <div class="formation_places_dispo"><u>Places restantes</u> : <%=rs.getInt("PLACES_LIBRE") %>/<%=rs.getInt("MAX_PARTICPANT") %></div>
-        </div>
+      </div>
 
         <%
 
@@ -201,13 +204,13 @@
       <br>
       <!-- /.row -->
 
-    </div>
+      </div>
     <!-- /.container -->
     
     <!-- Footer
     <footer class="py-3 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright© 2018 - Projet LO54</p>
+        <p class="m-0 text-center text-white">CopyrightÂ© 2018 - Projet LO54</p>
       </div>
       <!-- /.container
     </footer> -->

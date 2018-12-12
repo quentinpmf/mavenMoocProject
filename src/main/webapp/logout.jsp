@@ -26,7 +26,7 @@
                 userSession.invalidate();
             }
             response.sendRedirect("home.jsp");
-            return; // <--- Here.
+            return;
         %>
     </body>
 </html>

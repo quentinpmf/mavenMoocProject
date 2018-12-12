@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.mavenproject.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,120 +18,135 @@ import javax.persistence.Table;
 
 /**
  *
- * @author qboudino
+ * @author quentinboudinot
  */
 @Entity
 @Table(name = "COURSE_SESSION")
-
-/**
- *
- * @author quent
- */
 public class CourseSession implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false, unique = true)
-    private int id;
- 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID", nullable = false)
+    private Integer id;
+    
+    @Basic(optional = false)
     @Column(name = "START_DATE", nullable = false)
-    private String startDate;
+    private Date startDate;
     
+    @Basic(optional = false)
     @Column(name = "END_DATE", nullable = false)
-    private String endDate;
-
-    @Column(name = "MAX_PARTICPANT", nullable = false)
-    private String maxParticipant;
+    private Date endDate;
     
-    @JoinColumn(name = "COURSE_CODE")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Basic(optional = false)
+    @Column(name = "MAXI", nullable = false)
+    private int maxi;
+    
+    @JoinColumn(name = "COURSE_CODE", referencedColumnName = "CODE", nullable = false)
+    @ManyToOne(optional = false)
     private Course courseCode;
     
-    @JoinColumn(name = "LOCATION_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOCATION_ID", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false)
     private Location locationId;
     
+    @Basic(optional = false)
     @Column(name = "IMAGE", nullable = false)
-    private String imageLink; 
+    private String image;
     
-    @Column(name = "PLACES_LIBRE", nullable = false)
-    private int placesLibre; 
+    @Basic(optional = false)
+    @Column(name = "PLACES_LIBRES", nullable = false)
+    private String placesLibres;
     
-    public CourseSession(int id, String startDate, String endDate, String maxParticipant, String imageLink, int placesLibre) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sessionId", fetch = FetchType.EAGER)
+    private List<ClientSession> clientSessionList;
+
+    public CourseSession() {
+    }
+
+    public CourseSession(Integer id) {
+        this.id = id;
+    }
+
+    public CourseSession(Integer id, Date startDate, Date endDate, int maxi, String image, String placesLibres) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.maxParticipant = maxParticipant;
-        this.imageLink = imageLink;
-        this.placesLibre = placesLibre;
-    }    
-    
-    public CourseSession() {
+        this.maxi = maxi;
+        this.image = image;
+        this.placesLibres = placesLibres;
     }
-    
-    public int getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public String getStartDate() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
         return endDate;
     }
 
-    public String getMaxParticipant() {
-        return maxParticipant;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getMaxi() {
+        return maxi;
+    }
+
+    public void setMaxi(int maxi) {
+        this.maxi = maxi;
+    }
+    
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    public String getPlacesLibres() {
+        return placesLibres;
+    }
+
+    public void setPlacesLibres(String placesLibres) {
+        this.placesLibres = placesLibres;
     }
 
     public Course getCourseCode() {
         return courseCode;
     }
 
-    public Location getLocationId() {
-        return locationId;
-    }
-
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public int getPlacesLibre() {
-        return placesLibre;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setMaxParticipant(String maxParticipant) {
-        this.maxParticipant = maxParticipant;
-    }
-
     public void setCourseCode(Course courseCode) {
         this.courseCode = courseCode;
+    }
+
+    public Location getLocationId() {
+        return locationId;
     }
 
     public void setLocationId(Location locationId) {
         this.locationId = locationId;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public List<ClientSession> getClientSessionList() {
+        return clientSessionList;
     }
 
-    public void setPlacesLibre(int placesLibre) {
-        this.placesLibre = placesLibre;
+    public void setClientSessionList(List<ClientSession> clientSessionList) {
+        this.clientSessionList = clientSessionList;
     }
-
 
 }

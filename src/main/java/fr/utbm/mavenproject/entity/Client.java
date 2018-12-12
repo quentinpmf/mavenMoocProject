@@ -1,21 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.mavenproject.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 /**
  *
@@ -23,39 +18,45 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CLIENT")
-
-/**
- *
- * @author quentinboudinot
- */
 public class Client implements Serializable {
 
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false, unique = true)
-    private int id;
- 
-    @Column(name = "LASTNAME", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID", nullable = false)
+    private Integer id;
+    
+    @Basic(optional = false)
+    @Column(name = "LASTNAME", nullable = false, length = 255)
     private String lastname;
-
-    @Column(name = "FIRSTNAME", nullable = false)
+    
+    @Basic(optional = false)
+    @Column(name = "FIRSTNAME", nullable = false, length = 255)
     private String firstname;
     
-    @Column(name = "ADDRESS", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "ADDRESS", nullable = false, length = 255)
     private String address;
     
-    @Column(name = "PHONE", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "PHONE", nullable = false, length = 12)
     private String phone;
     
-    @Column(name = "EMAIL", nullable = false, unique = true)
+    @Basic(optional = false)
+    @Column(name = "EMAIL", nullable = false, length = 255)
     private String email;
     
-    @Column(name = "PASSWORD", nullable = false)
+    @Basic(optional = false)
+    @Column(name = "PASSWORD", nullable = false, length = 255)
     private String password;
     
-    @ManyToMany(mappedBy = "CLIENT")
-    private List<CourseSession> sessions = new ArrayList<CourseSession>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
+    private List<ClientSession> clientSessionList;
+    
+    public Client() {
+    }
 
-    public Client(int id, String lastname, String firstname, String address, String phone, String email, String password) {
+    public Client(Integer id, String lastname, String firstname, String address, String phone, String email, String password) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -65,71 +66,68 @@ public class Client implements Serializable {
         this.password = password;
     }
 
-    public Client() {
+    public Integer getId() {
+        return id;
     }
 
-    public int getId() {
-        return id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getLastname() {
         return lastname;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-    
-    public List<CourseSession> getSessions() {
-        return sessions;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setSessions(List<CourseSession> sessions) {
-        this.sessions = sessions;
+    public List<ClientSession> getClientSessionList() {
+        return clientSessionList;
+    }
+
+    public void setClientSessionList(List<ClientSession> clientSessionList) {
+        this.clientSessionList = clientSessionList;
     }
     
 }

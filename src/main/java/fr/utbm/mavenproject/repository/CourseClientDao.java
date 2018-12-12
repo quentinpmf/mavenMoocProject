@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.utbm.mavenproject.repository;
-import fr.utbm.mavenproject.entity.CourseClient;
-import fr.utbm.mavenproject.entity.Location;
+import fr.utbm.mavenproject.entity.ClientSession;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -14,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author qboudino
+ * @author quentinboudinot
  */
 public class CourseClientDao 
 {
@@ -28,32 +22,32 @@ public class CourseClientDao
         return entityManager;
     }
     
-    public List<CourseClient> getCourseClients() {
-        List<CourseClient> courseSessionClients = getEntityManager().createQuery("select c from CourseClient c", CourseClient.class).getResultList();
+    public List<ClientSession> getCourseClients() {
+        List<ClientSession> courseSessionClients = getEntityManager().createQuery("select c from CourseClient c", ClientSession.class).getResultList();
         return courseSessionClients;
     }
     
-    public List<CourseClient> getClientsByCourseCode(int courseCode) {
-        TypedQuery<CourseClient> query = getEntityManager().createQuery("select c from CourseClient c where c.csId =:csId", CourseClient.class);
-        List<CourseClient> result = query.setParameter("csId", courseCode).getResultList();
+    public List<ClientSession> getClientsByCourseCode(int courseCode) {
+        TypedQuery<ClientSession> query = getEntityManager().createQuery("select c from CourseClient c where c.csId =:csId", ClientSession.class);
+        List<ClientSession> result = query.setParameter("csId", courseCode).getResultList();
         return result;
     }
     
-    public CourseClient insert(CourseClient c) {
+    public ClientSession insert(ClientSession c) {
            getEntityManager().getTransaction().begin();
            getEntityManager().persist(c);
            getEntityManager().getTransaction().commit();
            return c;
     }
 
-    public void delete(CourseClient c) {
+    public void delete(ClientSession c) {
         getEntityManager().getTransaction().begin();
         c = getEntityManager().merge(c);//<-Important
         getEntityManager().remove(c);
         getEntityManager().getTransaction().commit();
     }
     
-    public CourseClient update(CourseClient c) {
+    public ClientSession update(ClientSession c) {
         getEntityManager().getTransaction().begin();
         c = getEntityManager().merge(c);
         getEntityManager().getTransaction().commit();
@@ -64,7 +58,7 @@ public class CourseClientDao
     
     public boolean checkIfClientIsInCs(String clientId, String csId) {        
         System.out.println("AZAZAZAZAZAZAZ");
-        Query query = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM CourseClient WHERE clientId=14 AND csId=4", CourseClient.class);
+        Query query = getEntityManager().createNativeQuery("SELECT COUNT(*) FROM CourseClient WHERE clientId=14 AND csId=4", ClientSession.class);
         System.out.println("BLABLABLABLA");
         int count = (int) query.getSingleResult();
         

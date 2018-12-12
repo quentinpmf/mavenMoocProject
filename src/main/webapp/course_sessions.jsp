@@ -35,7 +35,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="home.jsp">Accueil
+                <a class="nav-link" href="home">Accueil
                 
                 </a>
               </li>
@@ -137,7 +137,7 @@
         while(rs.next())
         {
             String imageLink = rs.getString("IMAGE");
-            
+        
             if (imageLink == null || imageLink.isEmpty()) {
                 imageLink="http://image.noelshack.com/fichiers/2018/49/4/1544137044-formation8.jpg";
             }

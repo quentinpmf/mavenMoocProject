@@ -1,30 +1,15 @@
 package fr.utbm.mavenproject.controller;
 
-import static fr.utbm.mavenproject.controller.LoginServlet.VUE;
-import fr.utbm.mavenproject.entity.Client;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import fr.utbm.mavenproject.entity.CourseSession;
-import java.util.ArrayList;
 
-/*
+/**
+ *
  * @author quentinboudinot
-*/
+ */
 public class CourseSessionServlet extends HttpServlet {
     public static final String VUE          = "/course_sessions.jsp";
     public static final String VUE_CONNEXION = "/login.jsp";
@@ -36,6 +21,7 @@ public class CourseSessionServlet extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
+        /*
         System.out.println("doGet dans CourseSession");
         
         //filtres
@@ -91,13 +77,14 @@ public class CourseSessionServlet extends HttpServlet {
                     }
                 }
                 */
+        /*
             }
             else
             {
                 //affichage de la page normal sans parametres
             }
         }
-        
+        */
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
