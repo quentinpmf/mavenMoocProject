@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = "/logout" )
 public class LogoutServlet extends HttpServlet {
-    public static final String VUE_HOME     = "/home.jsp";
+    public static final String VUE_HOME     = "home";
     public static final String VUE_LOGOUT   = "/logout.jsp";
     public static final String CHAMP_EMAIL  = "email";
 

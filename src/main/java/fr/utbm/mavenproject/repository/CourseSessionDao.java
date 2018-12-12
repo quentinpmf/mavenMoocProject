@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -37,15 +38,10 @@ public class CourseSessionDao
     }
     
     public List<CourseSession> getFourFirstCs() {
-        System.out.println("getFourFirstCs dao");
-        /* TODO QUENTIN 
-        String query="SELECT * FROM COURSE_SESSION ORDER BY ID DESC";
-        Connection conn=DriverManager.getConnection(url, username, password);
-        Statement stmt=conn.createStatement();
-        stmt.setMaxRows(4);
-        */
-        List<CourseSession> courseSessions = getEntityManager().createQuery("from CourseSession").getResultList();
-        System.out.println("getFourFirstCs after dao");
+        Query query = getEntityManager().createQuery("select c from CourseSession c ORDER BY c.id DESC", CourseSession.class); 
+        query.setFirstResult(0);
+        query.setMaxResults(4);
+        List<CourseSession> courseSessions = query.getResultList();
         return courseSessions;
     }
     

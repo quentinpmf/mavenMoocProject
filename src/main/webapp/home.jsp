@@ -110,94 +110,25 @@
       <h3 class="my-4">Nos prochaines sessions de formation</h3>
 
       <div class="row">
-
-        <%
-        try
-        {
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
-        String url="jdbc:derby://localhost:1527/bdd_projetLO54";
-        String username="bdd_user";
-        String password="bdd_password";
-        String query="SELECT * FROM COURSE_SESSION ORDER BY ID DESC";
-        Connection conn=DriverManager.getConnection(url, username, password);
-        Statement stmt=conn.createStatement();
-        stmt.setMaxRows(4);
-        ResultSet rs=stmt.executeQuery(query);
-        while(rs.next())
-        {
-            String imageLink = rs.getString("IMAGE");
-            System.out.println("imageLink = "+imageLink);
-            
-            if (imageLink == null || imageLink.isEmpty()) {
-                imageLink="http://image.noelshack.com/fichiers/2018/49/4/1544137044-formation8.jpg";
-            }
-        %>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <img class="img-fluid" src="<%=imageLink %>" alt="">
-        </div>
-
-        <%
-
-        }
-        %>
-
-        <%
-        rs.close();
-        stmt.close();
-        conn.close();
-        }
-        catch(Exception e)
-        {
-        e.printStackTrace();
-        }
-        %>
-        
+        <c:forEach items="${courseSessions}" var="courseSession">
+            <div class="col-md-3 col-sm-6 mb-4">
+                <img class="img-fluid" src="${courseSession.image}" alt="">
+            </div>
+        </c:forEach>
       </div>
         
-      <div class="row">  
-        <!-- affichage du bloc gris -->
-        <%
-        try
-        {
-        Class.forName("org.apache.derby.jdbc.ClientDriver");
-        String url="jdbc:derby://localhost:1527/bdd_projetLO54";
-        String username="bdd_user";
-        String password="bdd_password";
-        String query="SELECT * FROM COURSE_SESSION cs INNER JOIN COURSE c ON cs.COURSE_CODE = c.CODE ORDER BY ID DESC";
-        Connection conn=DriverManager.getConnection(url, username, password);
-        Statement stmt=conn.createStatement();
-        stmt.setMaxRows(4);
-        ResultSet rs=stmt.executeQuery(query);
-        while(rs.next())
-        {
-        %>
-        
-        <div class="col-md-3 col-sm-6 mb-4 formation_info">
-            <div class="formation_title"><b><%=rs.getString("TITLE") %></b></div>
-            <div class="formation_date"><i>Du <%=rs.getDate("START_DATE") %> au <%=rs.getDate("END_DATE") %></i></div>
-            <div class="formation_lieu"><u>Lieu</u> : <%=rs.getInt("LOCATION_ID") %></div>
-            <div class="formation_places_dispo"><u>Places restantes</u> : <%=rs.getInt("PLACES_LIBRE") %>/<%=rs.getInt("MAX_PARTICPANT") %></div>
-      </div>
-
-        <%
-
-        }
-        %>
-
-        <%
-        rs.close();
-        stmt.close();
-        conn.close();
-        }
-        catch(Exception e)
-        {
-        e.printStackTrace();
-        }
-        %>
-        
+      <div class="row">
+        <c:forEach items="${courseSessions}" var="courseSession">
+            <div class="col-md-3 col-sm-6 mb-4 formation_info">
+                <div class="formation_title"><b>${courseSession.courseCode.title}</b></div>
+                <div class="formation_date"><i>Du ${courseSession.startDate} au ${courseSession.endDate}</i></div>
+                <div class="formation_lieu"><u>Lieu</u> : ${courseSession.locationId.city}</div>
+                <div class="formation_places_dispo"><u>Places libres</u> : ${courseSession.placesLibres}/${courseSession.maxi}</div>
+            </div>
+        </c:forEach>
       </div>
       <!-- /.row -->
+      
       <div class="row">
           <a class="btn btn-primary" href="course_sessions" role="button">Voir toutes nos formations</a>
       </div>

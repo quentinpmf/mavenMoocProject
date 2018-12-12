@@ -26,6 +26,7 @@ public class HomeServlet extends HttpServlet {
         CourseSessionService css = new CourseSessionService();
         List<CourseSession> courseSessions = css.getFourFirstCs();
         request.setAttribute("courseSessions", courseSessions);
+        System.out.println("courseSessions = "+courseSessions);
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 

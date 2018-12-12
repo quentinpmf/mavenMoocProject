@@ -40,7 +40,6 @@ public class CourseSessionService {
     
     //utilisé sur la home pour afficher les dernières courses sessions
     public List<CourseSession> getFourFirstCs() {
-        System.out.println("getFourFirstCs service");
         return objCSDao.getFourFirstCs();
     }
     
