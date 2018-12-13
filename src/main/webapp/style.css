@@ -42,6 +42,14 @@ body {
     margin-bottom: 100px;
 }
 
+.white{
+    color:white;
+}
+
+.btn-secondary_ :hover{
+    text-decoration: none;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
