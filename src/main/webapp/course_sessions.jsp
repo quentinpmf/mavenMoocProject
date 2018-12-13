@@ -88,7 +88,7 @@
       </h1>
       
     <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-2">
             <div class="input-group" id="adv-search">
                 <!-- <input type="text" class="form-control" placeholder="Chercher des formations" /> -->
                 <div class="input-group-btn">
@@ -123,6 +123,20 @@
                 </div>
             </div>
         </div>
+        <%
+            if(lastname != null)
+            {
+        %>        
+            <div class="col-md-2 divCreateCsButton">
+                <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
+            </div>
+        <%
+            }
+        %>
+        
     </div>
       
       <br>
@@ -143,7 +157,7 @@
                     </p>
                     <p class="card-text">
                       <c:if test = "${!courseSession.placesLibres.equals(0)}"> <!-- TODO QUENTIN : ne marche pas pour l'instant -->
-                        <a class="btn btn-success" href="course_sessions?inscription=${courseSession.id}" role="button">Se pré-inscrire</a>
+                        <a class="btn btn-success" href="registercoursesession?courseId=${courseSession.id}" role="button">Se pré-inscrire</a>
                      </c:if>
                     </p>
                   </div>
