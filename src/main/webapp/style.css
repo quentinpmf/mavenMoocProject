@@ -32,6 +32,16 @@ body {
     margin-bottom: 25px;
 }
 
+.divCreateCsButton
+{
+    margin-left: 15px;
+}
+
+.divCreateFormationButton
+{
+    margin-bottom: 100px;
+}
+
 @media (min-width: 992px) {
   body {
     padding-top: 56px;
