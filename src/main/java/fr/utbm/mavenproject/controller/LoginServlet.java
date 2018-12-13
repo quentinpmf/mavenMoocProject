@@ -1,5 +1,6 @@
 package fr.utbm.mavenproject.controller;
 
+import static fr.utbm.mavenproject.controller.CourseSessionRegisterServlet.VUE_CS;
 import fr.utbm.mavenproject.entity.Client;
 import fr.utbm.mavenproject.service.ClientService;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet( name="LoginServlet", urlPatterns = "/login" )
 public class LoginServlet extends HttpServlet {
     public static final String VUE          = "/login.jsp";
-    public static final String VUE_HOME     = "/home.jsp";
+    public static final String VUE_HOME     = "home";
     public static final String CHAMP_EMAIL  = "email";
     public static final String CHAMP_PASS   = "motdepasse";
     public static final String ATT_ERREURS  = "erreurs";
@@ -85,7 +86,9 @@ public class LoginServlet extends HttpServlet {
                     userSession.setAttribute("address",cli.getAddress());
                     userSession.setAttribute("phone",cli.getPhone());
                     
-                    this.getServletContext().getRequestDispatcher( VUE_HOME ).forward( request, response );
+                    //redirection vers la home
+                    response.sendRedirect(VUE_HOME);
+                    return;
                 }
                 else
                 {
