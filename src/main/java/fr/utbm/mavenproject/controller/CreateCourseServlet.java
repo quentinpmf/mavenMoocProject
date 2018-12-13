@@ -1,16 +1,7 @@
 package fr.utbm.mavenproject.controller;
 
-import static fr.utbm.mavenproject.controller.LogoutServlet.CHAMP_EMAIL;
 import fr.utbm.mavenproject.entity.Course;
-import fr.utbm.mavenproject.entity.CourseSession;
-import fr.utbm.mavenproject.entity.Location;
-import fr.utbm.mavenproject.repository.CourseDao;
-import fr.utbm.mavenproject.service.ClientService;
-import fr.utbm.mavenproject.service.CourseService;
-import fr.utbm.mavenproject.service.CourseSessionService;
-import fr.utbm.mavenproject.service.LocationService;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +16,7 @@ public class CreateCourseServlet extends HttpServlet {
     public static final String VUE           = "/createcourse.jsp";
     public static final String VUE_CONNEXION = "/login.jsp";
     public static final String VUE_CS        = "course_sessions";
+    public static final String CHAMP_EMAIL   = "email";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
