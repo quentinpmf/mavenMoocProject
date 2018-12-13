@@ -1,6 +1,7 @@
 package fr.utbm.mavenproject.controller;
 
 import fr.utbm.mavenproject.entity.Course;
+import fr.utbm.mavenproject.service.CourseService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
  * @author quentinboudinot
  */
 public class CreateCourseServlet extends HttpServlet {
-    public static final String VUE           = "/createcourse.jsp";
+    public static final String VUE           = "/create_course.jsp";
     public static final String VUE_CONNEXION = "/login.jsp";
     public static final String VUE_CS        = "course_sessions";
     public static final String CHAMP_EMAIL   = "email";
@@ -22,7 +23,7 @@ public class CreateCourseServlet extends HttpServlet {
     {
         System.out.println("doGet dans CreateCourseServlet"); //TODO QUENTIN : à désactiver lors de la mise en 
         
-        //filtres
+        //parametres
         String param_title = request.getParameter("title");
         
         //on regarde si l'utilisateur est bien connecté
@@ -33,7 +34,6 @@ public class CreateCourseServlet extends HttpServlet {
         if(email != null) 
         {
             //on teste les paramètres dans l'URL :
-            //filtrage des formations (via barre de recherche)
             if(param_title != null && !param_title.isEmpty())
             {
                 System.out.println("param_title = "+param_title);
