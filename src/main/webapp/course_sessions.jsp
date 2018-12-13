@@ -156,9 +156,17 @@
                         <u>Places restantes</u> : ${courseSession.placesLibres}/${courseSession.maxi}
                     </p>
                     <p class="card-text">
-                      <c:if test = "${!courseSession.placesLibres.equals(0)}"> <!-- TODO QUENTIN : ne marche pas pour l'instant -->
+                      <c:if test = "${!courseSession.placesLibres.trim().equals('0') }">
                         <a class="btn btn-success" href="registercoursesession?courseId=${courseSession.id}" role="button">Se pré-inscrire</a>
-                     </c:if>
+                      </c:if>
+                      <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
+                        <a class="btn btn-secondary" role="button">Complet</a>
+                      </c:if>
+                      <!--
+                      <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
+                        <a class="btn btn-warning" role="button">Inscrit</a>
+                      </c:if>
+                      -->
                     </p>
                   </div>
                 </div>
