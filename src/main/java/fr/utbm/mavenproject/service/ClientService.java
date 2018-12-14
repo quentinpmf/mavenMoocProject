@@ -2,6 +2,7 @@ package fr.utbm.mavenproject.service;
 
 import fr.utbm.mavenproject.repository.ClientDao;
 import fr.utbm.mavenproject.entity.Client;
+import fr.utbm.mavenproject.entity.ClientSession;
 
 import java.util.List;
 
@@ -111,12 +112,10 @@ public class ClientService {
     }
     
     // compare le mot de passe donné en parametre avec celui de la BDD.
-    public boolean comparePasswords(String email, String passwordFromForm)
-    {
+    public boolean comparePasswords(String email, String passwordFromForm) {
         Client cli = objClientDao.getClientByEmail(email); //récupération du client
         String passwordFromDB = cli.getPassword(); //récupération du mot de passe stocké en base
         passwordFromDB = passwordFromDB.replaceAll("\\s",""); //on supprime les espaces
         return (passwordFromDB.equals(passwordFromForm)); //on return true ou false en fonction de la différence de mot de passe
     }
-    
 }

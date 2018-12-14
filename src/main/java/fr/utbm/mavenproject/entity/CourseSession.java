@@ -149,4 +149,9 @@ public class CourseSession implements Serializable {
         this.clientSessionList = clientSessionList;
     }
 
+    @Override
+    public String toString() {
+        return "CourseSession{" + "id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", maxi=" + maxi + ", courseCode=" + courseCode + ", locationId=" + locationId + ", image=" + image + ", placesLibres=" + placesLibres + ", clientSessionList=" + clientSessionList + '}';
+    }
+
 }

@@ -42,10 +42,6 @@ public class CourseSessionService {
     public List<CourseSession> getFourFirstCs() {
         return objCSDao.getFourFirstCs();
     }
-    
-    public List<CourseSession> getAllCsWithFilters(String whereClause) {
-        return objCSDao.getAllCsWithFilters(whereClause);
-    }
 
     public CourseSessionDao locationDao() {
         return objCSDao;

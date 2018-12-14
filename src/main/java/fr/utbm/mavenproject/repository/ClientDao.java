@@ -71,11 +71,4 @@ public class ClientDao
             return true;
         }
     }
-    
-    public boolean checkIfClientIsInCs(String clientId, String csId)
-    {
-        CourseClientDao fcscd = new CourseClientDao();
-        boolean exists = fcscd.checkIfClientIsInCs(clientId,csId); //récupération du client
-        return exists;
-    }
 }

@@ -29,7 +29,7 @@ public class LocationDao
     }
     
     public List<Location> getLocations() {
-        List<Location> locations = getEntityManager().createQuery("select l from Location l").getResultList();
+        List<Location> locations = getEntityManager().createQuery("from Location").getResultList();
         return locations;
     }
     
