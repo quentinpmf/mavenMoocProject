@@ -55,7 +55,7 @@
                   Object firstname = userSession.getAttribute("firstname");
                   System.out.println("lastname = "+lastname);
                   System.out.println("firstname = "+firstname);
-
+                  
                   if(lastname != null)
                   {
               %>        
@@ -140,11 +140,7 @@
                               <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
                                 <a class="btn btn-secondary" role="button">Complet</a>
                               </c:if>
-                              <!--
-                              <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
-                                <a class="btn btn-warning" role="button">Inscrit</a>
-                              </c:if>
-                              -->
+                              <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
                             </p>
                           </div>
                         </div>
@@ -152,8 +148,13 @@
                 </c:forEach>
             </div>
         </div> 
-    </div>
     
+        <div class="form-group row">
+            <div class="col-lg-4 col-sm-6">
+                <a class="btn btn-warning" target="_blank" href="jasperAllSessions.jsp" role="button">Export PDF de toutes les sessions</a>
+            </div>
+        </div>
+    </div>
     <!-- /.container -->
 
     <!-- Footer -->

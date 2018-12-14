@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fd5d4a8b-10d1-48dd-8fd2-f96968480b8c">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="12"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     COURSE_SESSION."ID" AS COURSE_SESSION_ID,
+     COURSE_SESSION."START_DATE" AS COURSE_SESSION_START_DATE,
+     COURSE_SESSION."END_DATE" AS COURSE_SESSION_END_DATE,
+     COURSE_SESSION."MAXI" AS COURSE_SESSION_MAXI,
+     COURSE_SESSION."COURSE_CODE" AS COURSE_SESSION_COURSE_CODE,
+     COURSE_SESSION."LOCATION_ID" AS COURSE_SESSION_LOCATION_ID,
+     COURSE_SESSION."IMAGE" AS COURSE_SESSION_IMAGE,
+     COURSE_SESSION."PLACES_LIBRES" AS COURSE_SESSION_PLACES_LIBRES,
+     COURSE."CODE" AS COURSE_CODE,
+     COURSE."TITLE" AS COURSE_TITLE,
+     LOCATION."ID" AS LOCATION_ID,
+     LOCATION."CITY" AS LOCATION_CITY
+FROM
+     "BDD_USER"."COURSE" COURSE INNER JOIN "BDD_USER"."COURSE_SESSION" COURSE_SESSION ON COURSE."CODE" = COURSE_SESSION."COURSE_CODE"
+     INNER JOIN "BDD_USER"."LOCATION" LOCATION ON COURSE_SESSION."LOCATION_ID" = LOCATION."ID"]]>
+	</queryString>
+	<field name="LOCATION_CITY" class="java.lang.String"/>
+	<field name="COURSE_SESSION_START_DATE" class="java.sql.Date"/>
+	<field name="COURSE_SESSION_END_DATE" class="java.sql.Date"/>
+	<field name="COURSE_SESSION_MAXI" class="java.lang.Integer"/>
+	<field name="COURSE_SESSION_PLACES_LIBRES" class="java.lang.String"/>
+	<field name="COURSE_TITLE" class="java.lang.String"/>
+	<group name="COURSE_TITLE">
+		<groupExpression><![CDATA[$F{COURSE_TITLE}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="0" y="16" width="506" height="24" forecolor="#CC0000" uuid="e6068568-26f4-40d5-b2fd-533615e380c9"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COURSE_TITLE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="481" height="33" uuid="21b422b0-e011-4cb7-9d82-887489bdc17f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Université privée Saint-Joseph]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="46" width="378" height="22" uuid="3e51bd73-6a8f-41b4-af41-b51e1c206347"/>
+				<text><![CDATA[Liste de toutes les sessions de formations]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="77440c80-3c85-4714-bf27-f0adc4da6390"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="21" width="197" height="15" uuid="441cd272-7dfe-4e64-861e-8d4fba6ff580"/>
+				<text><![CDATA[Ville]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="197" y="21" width="91" height="15" uuid="c5b4fa06-c40f-42bd-8fdc-d914412f8b43"/>
+				<text><![CDATA[Date de début]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="288" y="21" width="99" height="15" uuid="02825779-0fee-4769-8a08-473928fff258"/>
+				<text><![CDATA[Date de fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="471" y="19" width="84" height="15" uuid="9388529c-69e0-4d9b-b309-e614d0cf41ce"/>
+				<text><![CDATA[Places totales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="387" y="19" width="84" height="15" uuid="c87e2d2d-960f-422b-b1bd-b4c1be844dda"/>
+				<text><![CDATA[Places libres]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="501bc544-dc76-43af-8bf3-f306c9e1d379"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="1" width="197" height="15" uuid="02698c60-5d08-4775-9cc5-54e46ca78025"/>
+				<textFieldExpression><![CDATA[$F{LOCATION_CITY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="197" y="1" width="91" height="15" uuid="292b8a33-ccd6-4b6d-8ddd-9a25c091e4e7"/>
+				<textFieldExpression><![CDATA[$F{COURSE_SESSION_START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="288" y="1" width="99" height="15" uuid="74d8e661-ff70-4a90-9145-5ee86a0885c6"/>
+				<textFieldExpression><![CDATA[$F{COURSE_SESSION_END_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="471" y="1" width="84" height="15" uuid="98e85647-5df3-439f-80f0-2f4304233197"/>
+				<textFieldExpression><![CDATA[$F{COURSE_SESSION_MAXI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="387" y="0" width="84" height="15" uuid="6e70c65e-ca30-4531-b873-4f4109243067"/>
+				<textFieldExpression><![CDATA[$F{COURSE_SESSION_PLACES_LIBRES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="93dbe210-b9a0-4e0c-8c1e-400e927841b9"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="e5429c62-0b9f-4dfe-85ff-f07e72a7e832"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="4a89c6d9-e4f8-473f-a3b2-dfdad11ae576"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="d4ec9b8d-fba4-4595-986b-90c1e8c4e502"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

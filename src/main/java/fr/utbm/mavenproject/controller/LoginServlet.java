@@ -1,6 +1,5 @@
 package fr.utbm.mavenproject.controller;
 
-import static fr.utbm.mavenproject.controller.CourseSessionRegisterServlet.VUE_CS;
 import fr.utbm.mavenproject.entity.Client;
 import fr.utbm.mavenproject.service.ClientService;
 import java.io.IOException;
