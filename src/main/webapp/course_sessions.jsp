@@ -23,26 +23,10 @@
     
     <title>Saint-Joseph</title>
     <link href="style.css" rel="stylesheet">
-    <!-- searchbar -->
+    <!-- searchbar CSS -->
     <link href="searchbar.css" rel="stylesheet">
-    
-    <style>
-        * {
-          box-sizing: border-box;
-        }
-
-        #myInputForTitle, #myInputForDate, #myInputForLocation {
-          background-image: url('/css/searchicon.png');
-          background-position: 10px 12px;
-          background-repeat: no-repeat;
-          width: 100%;
-          font-size: 16px;
-          padding: 12px 20px 12px 40px;
-          border: 1px solid #ddd;
-          margin-bottom: 12px;
-        }
-        
-    </style>
+    <!-- searchbar JS -->
+    <script src="searchbar.js"></script>
   </head>
 
   <body>
@@ -105,14 +89,39 @@
         <small>de formations</small>
       </h1>
       
-        <input type="text" id="myInputForTitle" onkeyup="myFunctionForTitle()" placeholder="Recherche par nom.." title="Type in a title">
-        <input type="text" id="myInputForDate" onkeyup="myFunctionForDate()" placeholder="Recherche par date.." title="Type in a date">
-        <input type="text" id="myInputForLocation" onkeyup="myFunctionForLocation()" placeholder="Recherche par ville.." title="Type in a location">
+      <%
+        if(lastname != null)
+        {     
+    %>        
+        <div class="form-group row">
+            <div class="col-lg-2 col-sm-4">
+                <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
+            </div>
+            <div class="col-lg-2 col-sm-4">
+                <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
+            </div>
+        </div>
+    <%
+        }
+    %>
+    
+      <div class="form-group row">
+          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForTitle" onkeyup="myNewFunction()" placeholder="Recherche par nom.." title="Type in a title"></div>
+          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForDate" onkeyup="myNewFunction()" placeholder="Recherche par date de début.." title="Type in a date"></div>
+          <div class="col-lg-4 col-sm-6">
+                <select class="form-control" onchange="myNewFunction()" id="myInputForLocation">
+                    <option value="" selected>Recherche par ville..</option>
+                    <c:forEach items="${locations}" var="location">
+                        <option value="${location.city.trim()}">${location.city.trim()}</option>
+                    </c:forEach>
+                </select>
+          </div>
+      </div>
 
         <div id="myCsDiv">
             <div class="row">
                 <c:forEach items="${courseSessions}" var="courseSession">
-                    <div class="col-lg-4 col-sm-6 portfolio-item sessions_list" data-title="${courseSession.courseCode.title.trim()}" data-location="${courseSession.locationId.city.trim()}" data-startdate="${courseSession.startDate}">
+                    <div class="col-lg-4 col-sm-6 portfolio-item sessions_list" data-title="${courseSession.courseCode.title.trim()}" data-location="${courseSession.locationId.city.trim()}" data-startdate="<fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/>">
                         <div class="card h-100">
                           <img class="card-img-top" src="${courseSession.image}" alt="">
                           <div class="card-body">
@@ -142,155 +151,9 @@
                     </div>
                 </c:forEach>
             </div>
-        </div>
-        
-        <script>
-            function myFunctionForTitle() {
-                var input, filter, ul, li, a, i, txtValue;
-                input = document.getElementById("myInputForTitle");
-                filter = input.value.toUpperCase();
-                myCsDiv = document.getElementById("myCsDiv");
-                div = myCsDiv.getElementsByClassName("sessions_list");
-                
-                for (i = 0; i < div.length; i++) {
-                    txtValue = document.getElementsByClassName("sessions_list")[i].getAttribute("data-title");
-                    console.log('txtValue myFunctionForTitle = ',i,"/",txtValue);
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        div[i].style.display = "";
-                    } else {
-                        div[i].style.display = "none";
-                    }
-                }
-            }
-            
-            function myFunctionForLocation() {
-                var input, filter, ul, li, a, i, txtValue;
-                input = document.getElementById("myInputForLocation");
-                filter = input.value.toUpperCase();
-                myCsDiv = document.getElementById("myCsDiv");
-                div = myCsDiv.getElementsByClassName("sessions_list");
-
-                for (i = 0; i < div.length; i++) {
-                    txtValue = document.getElementsByClassName("sessions_list")[i].getAttribute("data-location");
-                    console.log('txtValue myFunctionForLocation = ',i,"/",txtValue);
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        div[i].style.display = "";
-                    } else {
-                        div[i].style.display = "none";
-                    }
-                }
-            }
-            
-            function myFunctionForDate() {
-                var input, filter, ul, li, a, i, txtValue;
-                input = document.getElementById("myInputForDate");
-                filter = input.value.toUpperCase();
-                myCsDiv = document.getElementById("myCsDiv");
-                div = myCsDiv.getElementsByClassName("sessions_list");
-
-                for (i = 0; i < div.length; i++) {
-                    txtValue = document.getElementsByClassName("sessions_list")[i].getAttribute("data-startdate");
-                    console.log('txtValue myFunctionForDate = ',i,"/",txtValue);
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        div[i].style.display = "";
-                    } else {
-                        div[i].style.display = "none";
-                    }
-                }
-            }
-            
-        </script>
-        
-        <br>
-    
-    <% /*
-    <div class="row">
-	<div class="col-md-2">
-            <div class="input-group" id="adv-search">
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Filtrer les formations </button>
-                            <div class="dropdown-menu dropdown-menu-left" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="contain">Titre de la formation</label>
-                                    <input class="form-control" type="text" name="title"/>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Date de la formation</label>
-                                    <input class="form-control" type="date" name="date" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="filter">Ville de la formation</label>
-                                    <select class="form-control" name="location">
-                                        <option value="0" selected></option> <!-- todo dynamique -->
-                                        <c:forEach items="${locations}" var="location">
-                                            <option value="${location.id}">${location.city}</option>
-                                        </c:forEach>
-                                    </select>
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%
-            if(lastname != null)
-            {     
-            <div class="col-md-2 divCreateCsButton">
-                <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
-            </div>
-            <div class="col-md-3">
-                <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
-            </div>
-        <%
-            }
-        
+        </div> 
     </div>
-    --
-      
-      <br>
-      
-      <div class="row">
-        <c:forEach items="${courseSessions}" var="courseSession">
-            <div class="col-lg-4 col-sm-6 portfolio-item sessions_list">
-                <div class="card h-100">
-                  <img class="card-img-top" src="${courseSession.image}" alt="">
-                  <div class="card-body">
-                    <h4 class="card-title">${courseSession.courseCode.title}</h4>
-                    <p class="card-text">
-                        <i>Du <fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${courseSession.endDate}" pattern="dd/MM/yyyy"/></i>
-                        <br>
-                        <u>Lieu</u> : ${courseSession.locationId.city}
-                        <br>
-                        <u>Places restantes</u> : ${courseSession.placesLibres}/${courseSession.maxi}
-                    </p>
-                    <p class="card-text">
-                      <c:if test = "${!courseSession.placesLibres.trim().equals('0') }">
-                        <a class="btn btn-success" href="registercoursesession?courseId=${courseSession.id}" role="button">Se pré-inscrire</a>
-                      </c:if>
-                      <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
-                        <a class="btn btn-secondary" role="button">Complet</a>
-                      </c:if>
-                      <!--
-                      <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
-                        <a class="btn btn-warning" role="button">Inscrit</a>
-                      </c:if>
-                      -->
-                    </p>
-                  </div>
-                </div>
-            </div>
-        </c:forEach>
-      </div><!-- /.row -->
-
-    */ %>
     
-    </div>
     <!-- /.container -->
 
     <!-- Footer -->

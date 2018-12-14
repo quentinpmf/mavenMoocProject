@@ -29,6 +29,10 @@
         <servlet-name>CreateCourseSessionServlet</servlet-name>
         <servlet-class>fr.utbm.mavenproject.controller.CreateCourseSessionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseSessionRegisterServlet</servlet-name>
+        <servlet-class>fr.utbm.mavenproject.controller.CourseSessionRegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/inscription</url-pattern>
@@ -52,6 +56,10 @@
     <servlet-mapping>
         <servlet-name>CreateCourseSessionServlet</servlet-name>
         <url-pattern>/createcoursesession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseSessionRegisterServlet</servlet-name>
+        <url-pattern>/registercoursesession</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
