@@ -3,13 +3,10 @@ package fr.utbm.mavenproject.controller;
 import fr.utbm.mavenproject.entity.CourseSession;
 import fr.utbm.mavenproject.entity.Location;
 import fr.utbm.mavenproject.entity.Client;
-import fr.utbm.mavenproject.entity.ClientSession;
 import fr.utbm.mavenproject.service.ClientService;
-import fr.utbm.mavenproject.service.ClientSessionService;
 import fr.utbm.mavenproject.service.CourseSessionService;
 import fr.utbm.mavenproject.service.LocationService;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,8 +37,19 @@ public class CourseSessionServlet extends HttpServlet {
         LocationService ls = new LocationService();
         List<Location> locations = ls.getLocations();
 
+        HttpSession userSession = request.getSession(true);
+        Object email = userSession.getAttribute("email");
+        String strEmail = (String) email;
+        if(strEmail != null && !strEmail.isEmpty())
+        {
+            ClientService cs = new ClientService();
+            Client client = cs.getClientByEmail(email.toString().trim());
+            request.setAttribute("client",client);
+        }
+        
         request.setAttribute("courseSessions", courseSessions);
         request.setAttribute("locations",locations);
+        
         
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }

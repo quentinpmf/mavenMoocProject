@@ -119,6 +119,7 @@ public class RegisterServlet extends HttpServlet {
             cli.setPhone(phone); 
             cli.setEmail(email); 
             cli.setPassword(motDePasse); 
+            cli.setRole("0"); //role de base à 0 = client normal
             cs.create(cli);
             
             resultat = "Succès de l'inscription.";

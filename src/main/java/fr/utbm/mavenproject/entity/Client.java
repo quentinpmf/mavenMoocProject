@@ -50,13 +50,17 @@ public class Client implements Serializable {
     @Column(name = "PASSWORD", nullable = false, length = 255)
     private String password;
     
+    @Basic(optional = false)
+    @Column(name = "ROLE", nullable = false, length = 255)
+    private String role;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
     private List<ClientSession> clientSessionList;
     
     public Client() {
     }
 
-    public Client(Integer id, String lastname, String firstname, String address, String phone, String email, String password) {
+    public Client(Integer id, String lastname, String firstname, String address, String phone, String email, String password, String role) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -64,6 +68,7 @@ public class Client implements Serializable {
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -92,6 +97,14 @@ public class Client implements Serializable {
 
     public String getAddress() {
         return address;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setAddress(String address) {

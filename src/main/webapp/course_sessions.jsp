@@ -53,8 +53,10 @@
                   HttpSession userSession = request.getSession(true);
                   Object lastname = userSession.getAttribute("lastname");
                   Object firstname = userSession.getAttribute("firstname");
+                  Object role = userSession.getAttribute("role");
                   System.out.println("lastname = "+lastname);
                   System.out.println("firstname = "+firstname);
+                  System.out.println("role = "+role);
                   
                   if(lastname != null)
                   {
@@ -90,10 +92,11 @@
       </h1>
       
       <%
-        if(lastname != null)
-        {     
-    %>        
-        <div class="form-group row">
+        if(role!=null)
+        {
+      %>
+        <c:if test = "${role == '1'}">
+            <div class="form-group row">
             <div class="col-lg-2 col-sm-4">
                 <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
             </div>
@@ -101,13 +104,14 @@
                 <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
             </div>
         </div>
-    <%
+        </c:if>
+      <% 
         }
-    %>
+      %>
     
       <div class="form-group row">
           <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForTitle" onkeyup="myNewFunction()" placeholder="Recherche par nom.." title="Type in a title"></div>
-          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForDate" onkeyup="myNewFunction()" placeholder="Recherche par date de début.." title="Type in a date"></div>
+          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForDate" onkeyup="myNewFunction()" placeholder="Date de début (dd/mm/YYYY)" title="Type in a date"></div>
           <div class="col-lg-4 col-sm-6">
                 <select class="form-control" onchange="myNewFunction()" id="myInputForLocation">
                     <option value="" selected>Recherche par ville..</option>
@@ -135,12 +139,21 @@
                             </p>
                             <p class="card-text">
                               <c:if test = "${!courseSession.placesLibres.trim().equals('0') }">
-                                <a class="btn btn-success" href="registercoursesession?courseId=${courseSession.id}" role="button">Se pré-inscrire</a>
+                                <a class="btn btn-success" href="registercoursesession?courseId=${courseSession.id}" role="button">S'inscrire</a>
                               </c:if>
                               <c:if test = "${courseSession.placesLibres.trim().equals('0') }">
                                 <a class="btn btn-secondary" role="button">Complet</a>
                               </c:if>
-                              <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
+                              <%
+                                if(role!=null)
+                                {
+                              %>
+                                <c:if test = "${role == '1'}">
+                                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
+                                </c:if>
+                              <% 
+                                }
+                              %>
                             </p>
                           </div>
                         </div>
@@ -151,7 +164,16 @@
     
         <div class="form-group row">
             <div class="col-lg-4 col-sm-6">
-                <a class="btn btn-warning" target="_blank" href="jasperAllSessions.jsp" role="button">Export PDF de toutes les sessions</a>
+                <%
+                  if(role!=null)
+                  {
+                %>
+                <c:if test = "${role == '1'}">
+                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
+                </c:if>
+                <%
+                 }
+                %>
             </div>
         </div>
     </div>

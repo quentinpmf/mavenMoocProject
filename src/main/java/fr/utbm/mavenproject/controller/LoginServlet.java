@@ -84,6 +84,7 @@ public class LoginServlet extends HttpServlet {
                     userSession.setAttribute("firstname",cli.getFirstname());
                     userSession.setAttribute("address",cli.getAddress());
                     userSession.setAttribute("phone",cli.getPhone());
+                    userSession.setAttribute("role",cli.getRole());
                     
                     //redirection vers la home
                     response.sendRedirect(VUE_HOME);
