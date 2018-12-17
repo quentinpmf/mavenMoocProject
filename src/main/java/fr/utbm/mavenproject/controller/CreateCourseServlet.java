@@ -36,8 +36,6 @@ public class CreateCourseServlet extends HttpServlet {
             //on teste les paramètres dans l'URL :
             if(param_title != null && !param_title.isEmpty())
             {
-                System.out.println("param_title = "+param_title);
-
                 //création du cours
                 Course cou = new Course();
                 cou.setTitle(param_title);

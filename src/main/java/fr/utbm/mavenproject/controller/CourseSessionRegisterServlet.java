@@ -40,18 +40,14 @@ public class CourseSessionRegisterServlet extends HttpServlet {
         //on regarde si l'utilisateur est bien connecté
         HttpSession userSession = request.getSession(true);
         Object email = userSession.getAttribute(CHAMP_EMAIL);
-        System.out.println("email = "+email);
         Object id = userSession.getAttribute(CHAMP_ID);
-        System.out.println("id = "+id);
         
         // si l'utilisateur est connecté
         if(email != null) 
         {
-            System.out.println("dans le if");
             //on teste les paramètres dans l'URL :
             if(param_courseId != null && !param_courseId.isEmpty())
             {
-                System.out.println("param_courseId = "+param_courseId);
                 Integer courseId = Integer.valueOf(param_courseId);	
 
                 //update bdd de la course sessions avec nombre de places libres = nbplaces libres -1

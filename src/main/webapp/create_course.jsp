@@ -51,8 +51,10 @@
                   HttpSession userSession = request.getSession(true);
                   Object lastname = userSession.getAttribute("lastname");
                   Object firstname = userSession.getAttribute("firstname");
+                  Object role = userSession.getAttribute("role");
                   System.out.println("lastname = "+lastname);
                   System.out.println("firstname = "+firstname);
+                  System.out.println("role = "+role);
 
                   if(lastname != null)
                   {
