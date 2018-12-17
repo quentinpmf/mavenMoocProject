@@ -33,13 +33,21 @@ body {
     box-sizing: border-box;
   }
 
-  #myInputForTitle, #myInputForDate {
+  #myInputForTitle {
     background-image: url('searchicon.png');
     background-position: 10px 12px;
     background-repeat: no-repeat;
     width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+  
+  #myInputForStartDate, #myInputForEndDate {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 0px 12px 0px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
   }

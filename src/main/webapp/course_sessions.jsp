@@ -97,35 +97,42 @@
       %>
         <c:if test = "${role == '1'}">
             <div class="form-group row">
-            <div class="col-lg-2 col-sm-4">
-                <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
+                <div class="col-lg-2 col-sm-4">
+                    <a class="btn btn-info" href="createcourse" role="button">Créer une formation</a>
+                </div>
+                <div class="col-lg-3 col-sm-4">
+                    <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
+                </div>
+                <div class="col-lg-2 col-sm-4 divExportPDF">
+                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Exporter toutes les sessions en PDF</a>
+                </div>
             </div>
-            <div class="col-lg-2 col-sm-4">
-                <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
-            </div>
-        </div>
         </c:if>
       <% 
         }
       %>
     
       <div class="form-group row">
-          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForTitle" onkeyup="myNewFunction()" placeholder="Recherche par nom.." title="Type in a title"></div>
-          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForDate" onkeyup="myNewFunction()" placeholder="Date de début (dd/mm/YYYY)" title="Type in a date"></div>
-          <div class="col-lg-4 col-sm-6">
-                <select class="form-control" onchange="myNewFunction()" id="myInputForLocation">
-                    <option value="" selected>Recherche par ville..</option>
+          <div class="col-lg-4 col-sm-6"><input type="text" id="myInputForTitle" onkeyup="searchFunction()" placeholder="Tri par nom.." title="Type in a title"></div>
+          <div class="col-lg-2 col-sm-4"><input type="date" id="myInputForStartDate" onchange="searchFunction()" placeholder="Tri par date de début (dd/mm/YYYY)" title="Type in a date"></div>
+          <div class="col-lg-2 col-sm-4"><input type="date" id="myInputForEndDate" onchange="searchFunction()" placeholder="Tri par date de fin (dd/mm/YYYY)" title="Type in a date"></div>
+          <div class="col-lg-2 col-sm-4">
+                <select class="form-control" onchange="searchFunction()" id="myInputForLocation">
+                    <option value="" selected>Tri par ville..</option>
                     <c:forEach items="${locations}" var="location">
                         <option value="${location.city.trim()}">${location.city.trim()}</option>
                     </c:forEach>
                 </select>
+          </div>
+          <div class="col-lg-2 col-sm-4">
+            <button type="button" class="btn btn-danger" onclick="resetSearchbar()">Réinitialiser</button>
           </div>
       </div>
 
         <div id="myCsDiv">
             <div class="row">
                 <c:forEach items="${courseSessions}" var="courseSession">
-                    <div class="col-lg-4 col-sm-6 portfolio-item sessions_list" data-title="${courseSession.courseCode.title.trim()}" data-location="${courseSession.locationId.city.trim()}" data-startdate="<fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/>">
+                    <div class="col-lg-4 col-sm-6 portfolio-item sessions_list" data-title="${courseSession.courseCode.title.trim()}" data-location="${courseSession.locationId.city.trim()}" data-startdate="<fmt:formatDate value="${courseSession.startDate}" pattern="yyyy-MM-dd"/>" data-enddate="<fmt:formatDate value="${courseSession.endDate}" pattern="yyyy-MM-dd"/>">
                         <div class="card h-100">
                           <img class="card-img-top" src="${courseSession.image}" alt="">
                           <div class="card-body">
@@ -149,7 +156,7 @@
                                 {
                               %>
                                 <c:if test = "${role == '1'}">
-                                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
+                                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export liste clients</a>
                                 </c:if>
                               <% 
                                 }
@@ -161,21 +168,7 @@
                 </c:forEach>
             </div>
         </div> 
-    
-        <div class="form-group row">
-            <div class="col-lg-4 col-sm-6">
-                <%
-                  if(role!=null)
-                  {
-                %>
-                <c:if test = "${role == '1'}">
-                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Export PDF Clients</a>
-                </c:if>
-                <%
-                 }
-                %>
-            </div>
-        </div>
+      
     </div>
     <!-- /.container -->
 
