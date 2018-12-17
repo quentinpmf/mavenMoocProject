@@ -26,6 +26,10 @@ public class ClientService {
         objClientDao.update(entity);
     }
 
+    public Client getClientById(Integer id) {
+        return objClientDao.getClientById(id);
+    }
+    
     public Client getClientByEmail(String email) {
         return objClientDao.getClientByEmail(email);
     }

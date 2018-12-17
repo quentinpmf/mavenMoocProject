@@ -39,9 +39,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="home">Accueil
-                <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -60,8 +59,9 @@
                   {
                %>
                         <c:if test = "${role == '1'}">
-                            <li class="nav-item">
+                            <li class="nav-item active">
                                 <a class="nav-link" href="admin">Administration</a>
+                                <span class="sr-only">(current)</span>
                             </li>
                         </c:if>
                <% 
@@ -94,73 +94,45 @@
 
     <!-- Page Content -->
     <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 class="my-4">Notre enceinte privée
-        <small>à Belfort</small>
-      </h1>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-8">
-          <img class="img-fluid" src="http://image.noelshack.com/fichiers/2018/49/4/1544128770-ecole.jpg" alt="image de l'université Saint-Joseph de Belfort">
-        </div>
-
-        <div class="col-md-4">
-          <h3 class="my-3">Description</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-          <h3 class="my-3">Ce que nous proposons</h3>
-          <ul>
-            <li>Des enseignants compétents</li>
-            <li>Un suivi régulier et personnel</li>
-            <li>De nombreuses formations à la carte</li>
-            <li>Des lieux de formation  différents</li>
-          </ul>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-      <h3 class="my-4">Nos prochaines sessions de formation</h3>
-
-      <div class="row">
-        <c:forEach items="${courseSessions}" var="courseSession">
-            <div class="col-md-3 col-sm-6 mb-4">
-                <img class="img-fluid" src="${courseSession.image}" alt="">
-            </div>
-        </c:forEach>
-      </div>
         
-      <div class="row">
-        <c:forEach items="${courseSessions}" var="courseSession">
-            <div class="col-md-3 col-sm-6 mb-4 formation_info">
-                <div class="formation_title"><b>${courseSession.courseCode.title}</b></div>
-                <div class="formation_date"><i>Du <fmt:formatDate value="${courseSession.startDate}" pattern="dd/MM/yyyy"/> au <fmt:formatDate value="${courseSession.endDate}" pattern="dd/MM/yyyy"/></i></div>
-                <div class="formation_lieu"><u>Lieu</u> : ${courseSession.locationId.city}</div>
-                <div class="formation_places_dispo"><u>Places libres</u> : ${courseSession.placesLibres}/${courseSession.maxi}</div>
-            </div>
-        </c:forEach>
-      </div>
-      <!-- /.row -->
-      
-      <div class="row">
-          <a class="btn btn-primary" href="course_sessions" role="button">Voir toutes nos formations</a>
-      </div>
-      <br>
-      <!-- /.row -->
-
-      </div>
+        <br>
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" colspan="2">Role</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                    <c:forEach items="${clients}" var="client">
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>${client.lastname}</td>
+                        <td>${client.firstname}</td>
+                        <td>${client.email}</td>
+                        <td>${client.role}</td>
+                        <td>
+                            <c:if test = "${client.role == '1'}">
+                                <a href="?role=down&clientId=${client.id}"><img src="fleche2.png"></a>
+                            </c:if>
+                            <c:if test = "${client.role != '1'}">
+                                <a href="?role=up&clientId=${client.id}"><img src="fleche1.png"></a>
+                            </c:if>
+                        </td>
+                      </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
     <!-- /.container -->
     
-    <!-- Footer
-    <footer class="py-3 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright© 2018 - Projet LO54</p>
-      </div>
-      <!-- /.container
-    </footer> -->
-
   </body>
 
 </html>

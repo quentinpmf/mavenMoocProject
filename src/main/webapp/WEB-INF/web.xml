@@ -33,6 +33,10 @@
         <servlet-name>CourseSessionRegisterServlet</servlet-name>
         <servlet-class>fr.utbm.mavenproject.controller.CourseSessionRegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>fr.utbm.mavenproject.controller.AdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/inscription</url-pattern>
@@ -60,6 +64,10 @@
     <servlet-mapping>
         <servlet-name>CourseSessionRegisterServlet</servlet-name>
         <url-pattern>/registercoursesession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>

@@ -58,6 +58,17 @@
                   System.out.println("firstname = "+firstname);
                   System.out.println("role = "+role);
                   
+                  if(role!=null)
+                  {
+               %>
+                        <c:if test = "${role == '1'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin">Administration</a>
+                            </li>
+                        </c:if>
+               <% 
+                  }
+
                   if(lastname != null)
                   {
               %>        

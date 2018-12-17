@@ -29,6 +29,12 @@ public class ClientDao
         return result;
     }
     
+    public Client getClientById(Integer id) {
+        TypedQuery<Client> query = getEntityManager().createQuery("select c from Client c where c.id = :id", Client.class);
+        Client result = query.setParameter("id", id).getSingleResult();
+        return result;
+    }
+    
     public List<Client> getClients(){
         List<Client> result = getEntityManager().createQuery("select c from Client c", Client.class).getResultList();
         return result;
