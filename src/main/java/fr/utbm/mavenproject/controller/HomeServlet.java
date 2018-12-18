@@ -22,7 +22,7 @@ public class HomeServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans HomeServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans HomeServlet"); //TODO : à désactiver lors de la mise en prod
         CourseSessionService css = new CourseSessionService();
         List<CourseSession> courseSessions = css.getFourFirstCs();
         CourseService cs = new CourseService();
@@ -36,7 +36,7 @@ public class HomeServlet extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans HomeServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans HomeServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 }

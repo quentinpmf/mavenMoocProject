@@ -31,13 +31,13 @@ public class RegisterServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans RegisterServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans RegisterServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doPost dans RegisterServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans RegisterServlet"); //TODO : à désactiver lors de la mise en prod
         
         String resultat;
         Map<String, String> erreurs = new HashMap<String, String>();

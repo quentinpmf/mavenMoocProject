@@ -102,6 +102,13 @@
         <small>de formations</small>
       </h1>
       
+      <c:if test = "${strError == 'email_deja_present'}">
+        <div class="alert alert-warning" role="alert">Vous êtes déja inscrit à cette session de cours.</div> 
+      </c:if>
+      <c:if test = "${strProcess == 'inscription_ok'}">
+        <div class="alert alert-info" role="alert">Vous êtes maintenant inscrit dans ce cours.</div> 
+      </c:if>
+      
       <%
         if(role!=null)
         {
@@ -140,6 +147,8 @@
           </div>
       </div>
 
+      <p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
+                
         <div id="myCsDiv">
             <div class="row">
                 <c:forEach items="${courseSessions}" var="courseSession">

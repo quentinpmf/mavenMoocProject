@@ -3,6 +3,7 @@ package fr.utbm.mavenproject.controller;
 import fr.utbm.mavenproject.entity.Client;
 import fr.utbm.mavenproject.entity.ClientSession;
 import fr.utbm.mavenproject.entity.CourseSession;
+import fr.utbm.mavenproject.service.ClientService;
 import fr.utbm.mavenproject.service.ClientSessionService;
 import fr.utbm.mavenproject.service.CourseSessionService;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class CourseSessionRegisterServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans CourseSessionRegisterServlet"); //TODO QUENTIN : à désactiver lors de la mise en 
+        System.out.println("doGet dans CourseSessionRegisterServlet"); //TODO : à désactiver lors de la mise en 
         
         String resultat;
         Map<String, String> erreurs = new HashMap<String, String>();
@@ -42,14 +43,17 @@ public class CourseSessionRegisterServlet extends HttpServlet {
         Object email = userSession.getAttribute(CHAMP_EMAIL);
         Object id = userSession.getAttribute(CHAMP_ID);
         
+        String error = "";
+        String process = "";
+        
         // si l'utilisateur est connecté
         if(email != null) 
         {
             //on teste les paramètres dans l'URL :
             if(param_courseId != null && !param_courseId.isEmpty())
             {
-                Integer courseId = Integer.valueOf(param_courseId);	
-
+                Integer courseId = Integer.valueOf(param_courseId);
+        
                 //update bdd de la course sessions avec nombre de places libres = nbplaces libres -1
                 //récupération de la course session
                 CourseSessionService csserv = new CourseSessionService();
@@ -58,26 +62,30 @@ public class CourseSessionRegisterServlet extends HttpServlet {
                 String strPlacesLibres = activeCs.getPlacesLibres();
                 strPlacesLibres = strPlacesLibres.replaceAll("\\s","");
                 int intPlacesLibres = Integer.valueOf(strPlacesLibres);
+                
                 if(intPlacesLibres > 0)
                 {
-                    
-                    try {
-                        //création de l'objet client
-                        Client cli = new Client();
-                        cli.setId((int) id);
-                        resultat = "Création du client OK";
+                    //création de l'objet client
+                    Client cli = new Client();
+                    cli.setId((int) id);
+                    resultat = "Création du client OK";
+
+                    //création de l'objet course session
+                    CourseSession cos = new CourseSession();
+                    cos.setId(courseId);
+                    resultat = "Création de courseSession OK";
+
+                    ClientService cs = new ClientService();
+                    boolean userIsRegistered = cs.checkRegister(cli.getId(),cos.getId());
                         
-                        //création de l'objet course session
-                        CourseSession cos = new CourseSession();
-                        cos.setId(courseId);
-                        resultat = "Création de courseSession OK";
-                        
+                    if(!userIsRegistered)
+                    {
                         //inscription du client dans la course session
                         ClientSession cls = new ClientSession();
                         cls.setClientId(cli);
                         cls.setSessionId(cos);
                         resultat = "Création de courseSession OK";
-                        
+
                         //insertion du clientsession dans la BDD
                         ClientSessionService css = new ClientSessionService();
                         css.create(cls);
@@ -88,17 +96,18 @@ public class CourseSessionRegisterServlet extends HttpServlet {
                         activeCs.setPlacesLibres(Integer.toString(newPlacesLibres));
                         csserv.update(activeCs);
                         
-                    } catch ( Exception e ) {
-                        resultat = "Echec de l'inscription à la session de cours";
-                        erreurs.put( "register_session", e.getMessage() );
+                        process = "?process=inscription_ok";
+                    }
+                    else
+                    {
+                        error = "?error=email_deja_present";
                     }
                     
-                    request.setAttribute( ATT_ERREURS, erreurs );
                     request.setAttribute( ATT_RESULTAT, resultat );
                 }
                 
                 //redirection vers les sessions de cours
-                response.sendRedirect(VUE_CS);
+                response.sendRedirect(VUE_CS+error+process);
                 return;
             }
         }

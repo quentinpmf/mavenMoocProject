@@ -1,6 +1,7 @@
 package fr.utbm.mavenproject.repository;
 
 import fr.utbm.mavenproject.entity.Client;
+import fr.utbm.mavenproject.entity.CourseSession;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -66,6 +67,28 @@ public class ClientDao
     public boolean checkIfEmailExists(String email) {
         Query query = getEntityManager().createQuery("select count(*) from Client c where c.email =:email");
         query.setParameter("email", email);
+        String count = query.getSingleResult().toString();
+        
+        if(count.equals("0"))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
+    public boolean checkIfClientIsRegisteredInSession(Integer clientId, Integer sessionId) {
+        // TODO : à refaire plus proprement mais ne fonctionne pas avec les lignes commentées ci-dessous ...
+        Query query = getEntityManager().createQuery("select count(*) from ClientSession cs where cs.clientId="+clientId+" and cs.sessionId="+sessionId);
+        
+        /*
+        Query query = getEntityManager().createQuery("select count(*) from ClientSession cs where cs.clientId=:id1 and cs.sessionId=:id2");
+        query.setParameter("id1",(int)clientId);
+        query.setParameter("id2",(int)sessionId);
+        */
+        
         String count = query.getSingleResult().toString();
         
         if(count.equals("0"))

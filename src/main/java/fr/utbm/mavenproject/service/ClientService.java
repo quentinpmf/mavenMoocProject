@@ -122,4 +122,9 @@ public class ClientService {
         passwordFromDB = passwordFromDB.replaceAll("\\s",""); //on supprime les espaces
         return (passwordFromDB.equals(passwordFromForm)); //on return true ou false en fonction de la différence de mot de passe
     }
+    
+    // renvoie true si l'utilisateur est déja inscrit à la session
+    public boolean checkRegister(Integer clientId, Integer sessionId) {
+        return objClientDao.checkIfClientIsRegisteredInSession(clientId,sessionId);
+    }
 }

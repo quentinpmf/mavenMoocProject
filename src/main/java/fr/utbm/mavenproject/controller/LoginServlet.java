@@ -28,14 +28,14 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans LoginServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans LoginServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans LoginServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans LoginServlet"); //TODO : à désactiver lors de la mise en prod
         
         String resultat;
         Map<String, String> erreurs = new HashMap<String, String>();
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
         // Initialisation du résultat global de la validation
         if ( erreurs.isEmpty() ) {
             boolean emailExists = cs.checkEmail(email); //je regarde si l'email est déja dans la BDD
-            
+                    
             if(emailExists) //si oui, alors on vérifie le mot de passe saisi par l'utilisateur
             {
                 boolean verifMotDePasse = cs.comparePasswords(email, motDePasse);

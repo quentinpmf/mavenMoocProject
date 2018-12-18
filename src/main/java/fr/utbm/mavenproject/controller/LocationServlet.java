@@ -26,7 +26,7 @@ public class LocationServlet extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans LocationServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans LocationServlet"); //TODO : à désactiver lors de la mise en prod
         
         String resultat;
         Map<String, String> erreurs = new HashMap<String, String>();
@@ -54,7 +54,7 @@ public class LocationServlet extends HttpServlet {
     @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans LocationServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans LocationServlet"); //TODO : à désactiver lors de la mise en prod
         LocationService ls = new LocationService();
         List<Location> locations = ls.getLocations();
         request.setAttribute("locations", locations);

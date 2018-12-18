@@ -20,7 +20,7 @@ public class AdminServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans AdminServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans AdminServlet"); //TODO : à désactiver lors de la mise en prod
         
         ClientService cs = new ClientService();
         List<Client> clients = cs.getClients();
@@ -54,7 +54,7 @@ public class AdminServlet extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans AdminServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod        
+        System.out.println("doPost dans AdminServlet"); //TODO : à désactiver lors de la mise en prod        
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 }

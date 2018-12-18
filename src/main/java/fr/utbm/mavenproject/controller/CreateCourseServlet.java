@@ -21,7 +21,7 @@ public class CreateCourseServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans CreateCourseServlet"); //TODO QUENTIN : à désactiver lors de la mise en 
+        System.out.println("doGet dans CreateCourseServlet"); //TODO : à désactiver lors de la mise en 
         
         //parametres
         String param_title = request.getParameter("title");
@@ -62,7 +62,7 @@ public class CreateCourseServlet extends HttpServlet {
     
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans CreateCourseServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans CreateCourseServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 }

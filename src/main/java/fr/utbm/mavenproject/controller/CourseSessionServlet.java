@@ -28,7 +28,7 @@ public class CourseSessionServlet extends HttpServlet {
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans CourseSession"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans CourseSession"); //TODO : à désactiver lors de la mise en prod
         
         //affichage de la page normal sans parametres
         CourseSessionService css = new CourseSessionService();
@@ -50,13 +50,22 @@ public class CourseSessionServlet extends HttpServlet {
         request.setAttribute("courseSessions", courseSessions);
         request.setAttribute("locations",locations);
         
+        if (request.getParameterMap().containsKey("error")) {
+            String strError = request.getParameter("error");
+            request.setAttribute("strError","email_deja_present");        
+        }
+        
+        if (request.getParameterMap().containsKey("process")) {
+            String strProcess = request.getParameter("process");
+            request.setAttribute("strProcess","inscription_ok");        
+        }
         
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
     
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {        
-        System.out.println("doPost dans HomeServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans HomeServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 }

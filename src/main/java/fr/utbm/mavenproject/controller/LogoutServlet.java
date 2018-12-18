@@ -21,7 +21,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doGet dans LogoutServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doGet dans LogoutServlet"); //TODO : désactiver lors de la mise en prod
         HttpSession userSession = request.getSession(true);
         Object email = userSession.getAttribute(CHAMP_EMAIL);
         // si l'utilisateur était connecté
@@ -34,7 +34,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException 
     {
-        System.out.println("doPost dans LogoutServlet"); //TODO QUENTIN : à désactiver lors de la mise en prod
+        System.out.println("doPost dans LogoutServlet"); //TODO : à désactiver lors de la mise en prod
         this.getServletContext().getRequestDispatcher( VUE_LOGOUT ).forward( request, response );
     }
 }
