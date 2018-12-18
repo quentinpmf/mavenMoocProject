@@ -103,20 +103,24 @@
       <!-- Portfolio Item Row -->
       <div class="row">
 
-        <div class="col-md-8">
+        <div class="col-md-7">
           <img class="img-fluid" src="http://image.noelshack.com/fichiers/2018/49/4/1544128770-ecole.jpg" alt="image de l'université Saint-Joseph de Belfort">
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
           <h3 class="my-3">Description</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-          <h3 class="my-3">Ce que nous proposons</h3>
-          <ul>
-            <li>Des enseignants compétents</li>
-            <li>Un suivi régulier et personnel</li>
-            <li>De nombreuses formations à la carte</li>
-            <li>Des lieux de formation  différents</li>
-          </ul>
+            <ul>
+                <li>Des enseignants compétents</li>
+                <li>Un suivi régulier et personnel</li>
+                <li>De nombreuses formations à la carte</li>
+                <li>Des lieux de formation  différents</li>
+            </ul>
+          <h3 class="my-3">Nos formations</h3>
+            <ul>
+                <c:forEach items="${courses}" var="course">
+                    <li>${course.title}</li>
+                </c:forEach>
+            </ul>
         </div>
 
       </div>
@@ -145,7 +149,7 @@
       <!-- /.row -->
       
       <div class="row">
-          <a class="btn btn-primary" href="course_sessions" role="button">Voir toutes nos formations</a>
+          <a class="btn btn-primary" href="course_sessions" role="button">Voir toutes nos sessions de formations</a>
       </div>
       <br>
       <!-- /.row -->

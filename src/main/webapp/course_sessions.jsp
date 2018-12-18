@@ -115,7 +115,7 @@
                     <a class="btn btn-danger" href="createcoursesession" role="button">Créer une session de formation</a>
                 </div>
                 <div class="col-lg-2 col-sm-4 divExportPDF">
-                    <a class="btn btn-warning" target="_blank" href="jasperSession.jsp?courseSessionId=${courseSession.id}" role="button">Exporter toutes les sessions en PDF</a>
+                    <a class="btn btn-warning" target="_blank" href="jasperAllSessions.jsp" role="button">Exporter toutes les sessions en PDF</a>
                 </div>
             </div>
         </c:if>

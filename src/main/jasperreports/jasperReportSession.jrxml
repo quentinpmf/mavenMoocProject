@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4599bd0-9d2a-46ef-ba0a-659ae9c99d77">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4599bd0-9d2a-46ef-ba0a-659ae9c99d77">
 	<property name="ireport.zoom" value="1.9487171000000016"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,7 +7,7 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-        <parameter name="COURSE_SESSION_ID" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COURSE_SESSION_ID" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      CLIENT."ID" AS CLIENT_ID,
@@ -56,23 +56,11 @@ WHERE
 		<groupHeader>
 			<band height="40">
 				<textField>
-					<reportElement style="SubTitle" x="0" y="16" width="197" height="24" forecolor="#990099" uuid="a6094733-d87d-4500-999b-2ac76cc1b3a9"/>
+					<reportElement style="SubTitle" x="0" y="16" width="541" height="24" forecolor="#990099" uuid="a6094733-d87d-4500-999b-2ac76cc1b3a9"/>
 					<textElement>
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{COURSE_TITLE}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="Detail" x="433" y="16" width="55" height="15" uuid="c21fe9a7-64b3-4fc2-a1d7-6c370b30fd08"/>
-					<textFieldExpression><![CDATA[$F{COURSE_SESSION_START_DATE}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="Detail" x="502" y="16" width="55" height="15" uuid="17d4766f-93eb-4c69-9f30-1c82f8864c91"/>
-					<textFieldExpression><![CDATA[$F{COURSE_SESSION_END_DATE}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="Detail" x="327" y="16" width="95" height="15" uuid="fb26fa66-d754-4fc7-a935-8ba66bbcb05e"/>
-					<textFieldExpression><![CDATA[$F{LOCATION_CITY}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
